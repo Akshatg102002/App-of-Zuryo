@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg', 'manifest.json'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg', 'manifest.json', 'sw-custom.js'],
       manifest: {
         name: 'Zuryo - On Demand Fitness',
         short_name: 'Zuryo',
@@ -32,6 +32,23 @@ export default defineConfig({
               text: "text",
               url: "url"
             }
+        },
+        protocol_handlers: [
+            {
+                protocol: "web+zuryo",
+                url: "/book?ref=%s"
+            }
+        ],
+        file_handlers: [
+            {
+                action: "/book",
+                accept: {
+                    "text/plain": [".txt"]
+                }
+            }
+        ],
+        note_taking: {
+            new_note_url: "/book"
         },
         icons: [
           {
@@ -81,17 +98,18 @@ export default defineConfig({
         ]
       },
       workbox: {
+        // Import custom logic for Push, Notification Click, Periodic Sync
+        importScripts: ['/sw-custom.js'],
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
         runtimeCaching: [
           {
-            // Cache the new icon from i.ibb.co
             urlPattern: /^https:\/\/i\.ibb\.co\/.*\.png/i,
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'external-icons',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
+                maxAgeSeconds: 60 * 60 * 24 * 365 
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -140,7 +158,6 @@ export default defineConfig({
               }
             }
           },
-          // Background sync to satisfy PWABuilder checklist
           {
              urlPattern: ({ url }) => url.pathname.startsWith('/api'),
              handler: 'NetworkOnly',

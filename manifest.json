@@ -15,7 +15,9 @@
   "display_override": [
     "window-controls-overlay",
     "standalone",
-    "browser"
+    "browser",
+    "tabbed",
+    "sidebar"
   ],
   "launch_handler": {
     "client_mode": "navigate-existing"
@@ -30,6 +32,36 @@
       "url": "url"
     }
   },
+  "protocol_handlers": [
+    {
+      "protocol": "web+zuryo",
+      "url": "/book?ref=%s"
+    }
+  ],
+  "file_handlers": [
+    {
+      "action": "/book",
+      "accept": {
+        "text/plain": [".txt"]
+      }
+    }
+  ],
+  "note_taking": {
+    "new_note_url": "/book"
+  },
+  "widgets": [
+     {
+        "name": "Zuryo Quick Book",
+        "short_name": "Book",
+        "description": "Book a fitness session quickly",
+        "tag": "book-session",
+        "template": "booking",
+        "ms_ac_template": "widgets/booking.json",
+        "data": "widgets/data.json",
+        "type": "application/json",
+        "screenshots": []
+     }
+  ],
   "icons": [
     {
       "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
