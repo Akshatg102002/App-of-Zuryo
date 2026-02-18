@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -21,15 +20,15 @@ export default defineConfig({
         scope: '/',
         icons: [
           {
-            src: 'https://i.ibb.co/HD23f4ZR/Zuryo-Logo.webp',
+            src: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg',
             sizes: '192x192',
-            type: 'image/webp',
+            type: 'image/jpeg',
             purpose: 'any'
           },
           {
-            src: 'https://i.ibb.co/HD23f4ZR/Zuryo-Logo.webp',
+            src: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg',
             sizes: '512x512',
-            type: 'image/webp',
+            type: 'image/jpeg',
             purpose: 'maskable'
           }
         ]

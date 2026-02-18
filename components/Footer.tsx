@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Facebook, Twitter, Instagram, Linkedin, MapPin, Mail, Phone, ChevronRight, FileText, Info, PhoneCall } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,7 @@ export const Footer: React.FC = () => {
             <div className="col-span-1 space-y-6">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-white/10 border border-white/10 rounded-xl flex items-center justify-center shadow-sm overflow-hidden backdrop-blur-sm">
-                        <img src="https://www.karmisalon.com/wp-content/uploads/2026/01/Zuryo_L.webp" alt="Zuryo" className="w-full h-full object-contain" />
+                        <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col">
                         <span className="text-xl font-black text-white tracking-tight leading-none uppercase">ZURYO</span>
@@ -95,8 +94,8 @@ export const Footer: React.FC = () => {
         </div>
         </footer>
 
-        {/* Mobile Footer */}
-        <footer className="md:hidden bg-[#0b1736] text-white pt-10 pb-8 px-6 rounded-t-[32px] mt-8">
+        {/* Mobile Footer with extended padding to handle bottom nav */}
+        <footer className="md:hidden bg-[#0b1736] text-white pt-10 pb-32 px-6 rounded-t-[32px] mt-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h3 className="font-black text-2xl tracking-tighter">ZURYO</h3>

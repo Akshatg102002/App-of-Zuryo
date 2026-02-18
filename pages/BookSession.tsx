@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft, Calendar, LocateFixed, Loader2, Clock, MapPin, CheckCircle, CreditCard, Sun, Moon, Sparkles, Star, Package } from 'lucide-react';
 import { CATEGORIES, PACKAGES } from '../constants';
@@ -206,7 +205,7 @@ export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfi
             currency: "INR",
             name: "Zuryo",
             description: desc,
-            image: "https://www.karmisalon.com/wp-content/uploads/2026/01/Zuryo_L.webp",
+            image: "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg",
             handler: async function (response: any) {
                 if (response.razorpay_payment_id) {
                     if (bookingType === 'SESSION') {

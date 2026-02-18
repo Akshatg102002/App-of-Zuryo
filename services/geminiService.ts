@@ -20,14 +20,14 @@ export const initializeChat = (): Chat => {
   return chatSession;
 };
 
-export const sendMessageToGemini = async (message: string): Promise<AsyncIterable<string>> => {
+export const sendMessageToGemini = async (message: string): Promise<AsyncGenerator<string, void, unknown>> => {
   const chat = initializeChat();
   
   try {
     const resultStream = await chat.sendMessageStream({ message });
     
     // Create an async generator to yield text chunks
-    async function* textGenerator() {
+    async function* textGenerator(): AsyncGenerator<string, void, unknown> {
       for await (const chunk of resultStream) {
         const c = chunk as GenerateContentResponse;
         if (c.text) {
@@ -40,7 +40,7 @@ export const sendMessageToGemini = async (message: string): Promise<AsyncIterabl
   } catch (error) {
     console.error("Gemini API Error:", error);
     // Return a fallback generator
-    async function* fallbackGenerator() {
+    async function* fallbackGenerator(): AsyncGenerator<string, void, unknown> {
       yield "Sorry, I'm having trouble connecting to the fitness grid right now. Please try again later! 💪";
     }
     return fallbackGenerator();

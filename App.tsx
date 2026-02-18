@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Booking, UserProfile } from './types';
@@ -34,10 +33,12 @@ const SplashScreen = () => (
             <div className="absolute w-32 h-32 border-4 border-primary/20 rounded-full"></div>
             <div className="absolute w-32 h-32 border-t-4 border-primary rounded-full animate-[spin_1s_linear_infinite]"></div>
             
-            {/* Text Logo */}
-            <h1 className="text-5xl md:text-6xl font-black text-white tracking-tighter relative z-10 select-none">
-                ZURYO
-            </h1>
+            {/* Logo Image */}
+            <img 
+                src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" 
+                alt="Zuryo" 
+                className="w-24 h-24 object-contain rounded-full relative z-10"
+            />
         </div>
         <div className="mt-8 flex flex-col items-center gap-2">
             <div className="h-1 w-20 bg-white/10 rounded-full overflow-hidden">
@@ -108,8 +109,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="min-h-screen bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary">
              {showNav && <TopNav />}
              
-             {/* Adjusted top padding for desktop. Added pb-28 for mobile to clear Fixed Bottom Nav */}
-             <main className="flex-1 w-full h-screen overflow-y-auto no-scrollbar md:pt-28 pb-28 md:pb-0 scroll-smooth relative">
+             {/* Adjusted top padding for desktop. Removed extra pb-28 on mobile to fix footer whitespace */}
+             <main className="flex-1 w-full h-screen overflow-y-auto no-scrollbar md:pt-28 pb-0 md:pb-0 scroll-smooth relative">
                 {children}
                 <Footer />
              </main>

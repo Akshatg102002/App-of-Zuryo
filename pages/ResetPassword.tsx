@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { auth } from '../services/firebase';
@@ -61,7 +60,7 @@ export const ResetPassword: React.FC = () => {
 
              <div className="w-full max-w-md bg-white relative z-10 animate-in fade-in zoom-in duration-300">
                 <div className="text-center mb-8">
-                    <img src="https://www.karmisalon.com/wp-content/uploads/2026/01/Zuryo_L.webp" className="w-24 h-auto object-contain mx-auto mb-4" alt="Zuryo" />
+                    <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" className="w-24 h-24 rounded-full object-cover mx-auto mb-4" alt="Zuryo" />
                     <h1 className="text-3xl font-extrabold text-secondary">Reset Password</h1>
                     <p className="text-gray-500 text-sm mt-2">Create a strong new password for your account</p>
                 </div>
