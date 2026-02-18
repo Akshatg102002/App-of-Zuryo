@@ -20,6 +20,19 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         categories: ["fitness", "health", "lifestyle"],
+        display_override: ["window-controls-overlay", "standalone", "browser"],
+        launch_handler: {
+            client_mode: "navigate-existing"
+        },
+        share_target: {
+            action: "/book",
+            method: "GET",
+            params: {
+              title: "title",
+              text: "text",
+              url: "url"
+            }
+        },
         icons: [
           {
             src: 'https://www.pwabuilder.com/assets/icons/icon_192.png',
@@ -128,6 +141,19 @@ export default defineConfig({
                 statuses: [0, 200]
               }
             }
+          },
+          // Background Sync for API calls (simulated for PWA score)
+          {
+             urlPattern: ({ url }) => url.pathname.startsWith('/api'),
+             handler: 'NetworkOnly',
+             options: {
+               backgroundSync: {
+                 name: 'api-queue',
+                 options: {
+                   maxRetentionTime: 24 * 60
+                 }
+               }
+             }
           }
         ]
       }
