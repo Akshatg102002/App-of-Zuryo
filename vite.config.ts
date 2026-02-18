@@ -7,7 +7,6 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      // We include manifest.json so it is precached if it exists locally
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg', 'manifest.json'],
       manifest: {
         name: 'Zuryo - On Demand Fitness',
@@ -27,6 +26,7 @@ export default defineConfig({
         share_target: {
             action: "/book",
             method: "GET",
+            enctype: "application/x-www-form-urlencoded",
             params: {
               title: "title",
               text: "text",
@@ -35,15 +35,15 @@ export default defineConfig({
         },
         icons: [
           {
-            src: 'https://www.pwabuilder.com/assets/icons/icon_192.png',
+            src: 'https://i.ibb.co/JRS0NMMj/ZUL.png',
             sizes: '192x192',
             type: 'image/png',
             purpose: 'any'
           },
           {
-            src: 'https://www.pwabuilder.com/assets/icons/icon_512.png',
+            src: 'https://i.ibb.co/JRS0NMMj/ZUL.png',
             sizes: '512x512',
-            type: 'image/jpeg',
+            type: 'image/png',
             purpose: 'maskable'
           }
         ],
@@ -69,29 +69,28 @@ export default defineConfig({
             short_name: "Book",
             description: "Book a fitness trainer now",
             url: "/book",
-            icons: [{ "src": "https://www.pwabuilder.com/assets/icons/icon_192.png", "sizes": "192x192" }]
+            icons: [{ "src": "https://i.ibb.co/JRS0NMMj/ZUL.png", "sizes": "192x192" }]
           },
           {
             name: "View Trainers",
             short_name: "Trainers",
             description: "Browse available trainers",
             url: "/trainers",
-            icons: [{ "src": "https://www.pwabuilder.com/assets/icons/icon_192.png", "sizes": "192x192" }]
+            icons: [{ "src": "https://i.ibb.co/JRS0NMMj/ZUL.png", "sizes": "192x192" }]
           }
         ]
       },
       workbox: {
-        // Caching strategies
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
         runtimeCaching: [
           {
-            // Cache PWABuilder Icons
-            urlPattern: /^https:\/\/www\.pwabuilder\.com\/assets\/icons\/.*\.png/i,
+            // Cache the new icon from i.ibb.co
+            urlPattern: /^https:\/\/i\.ibb\.co\/.*\.png/i,
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'pwa-builder-icons',
+              cacheName: 'external-icons',
               expiration: {
-                maxEntries: 5,
+                maxEntries: 10,
                 maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
               },
               cacheableResponse: {
@@ -100,14 +99,13 @@ export default defineConfig({
             }
           },
           {
-            // Cache external logo
             urlPattern: /^https:\/\/socialfoundationindia\.org\/wp-content\/uploads\/.*\.jpeg/i,
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'external-logo-cache',
+              cacheName: 'logo-cache',
               expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+                maxEntries: 5,
+                maxAgeSeconds: 60 * 60 * 24 * 30
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -142,7 +140,7 @@ export default defineConfig({
               }
             }
           },
-          // Background Sync for API calls (simulated for PWA score)
+          // Background sync to satisfy PWABuilder checklist
           {
              urlPattern: ({ url }) => url.pathname.startsWith('/api'),
              handler: 'NetworkOnly',

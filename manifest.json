@@ -7,38 +7,43 @@
     "health",
     "lifestyle"
   ],
-  "icons": [
-    {
-      "src": "https://www.pwabuilder.com/assets/icons/icon_192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "https://www.pwabuilder.com/assets/icons/icon_512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#142B5D",
   "background_color": "#142B5D",
   "orientation": "portrait",
-  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "browser"
+  ],
   "launch_handler": {
     "client_mode": "navigate-existing"
   },
   "share_target": {
     "action": "/book",
     "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
     "params": {
       "title": "title",
       "text": "text",
       "url": "url"
     }
   },
+  "icons": [
+    {
+      "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
   "screenshots": [
     {
       "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg",
@@ -63,7 +68,7 @@
       "url": "/book",
       "icons": [
         {
-          "src": "https://www.pwabuilder.com/assets/icons/icon_192.png",
+          "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
           "sizes": "192x192"
         }
       ]
@@ -75,7 +80,7 @@
       "url": "/trainers",
       "icons": [
         {
-          "src": "https://www.pwabuilder.com/assets/icons/icon_192.png",
+          "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
           "sizes": "192x192"
         }
       ]
