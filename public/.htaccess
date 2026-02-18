@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Allow access to .well-known folder
+  RewriteRule ^\.well-known/ - [L,NC]
+
+  # Redirect all other non-file requests to index.html (SPA Routing)
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Allow cross-origin requests for manifest and images
+  Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+<IfModule mod_mime.c>
+  # Ensure assetlinks is served as JSON
+  AddType application/json .json
+</IfModule>
