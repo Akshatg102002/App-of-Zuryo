@@ -19,6 +19,7 @@
 </IfModule>
 
 <IfModule mod_mime.c>
-  # Ensure assetlinks is served as JSON
+  # Ensure assetlinks is served as JSON and manifest as manifest+json
   AddType application/json .json
+  AddType application/manifest+json .webmanifest
 </IfModule>
