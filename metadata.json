@@ -1,0 +1,7 @@
+{
+  "name": "App of Zuryo - On Demand Fitness",
+  "description": "India's first community-based On Demand Fitness platform connecting residents with certified trainers in 60 minutes.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

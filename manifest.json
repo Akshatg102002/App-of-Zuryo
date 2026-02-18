@@ -1,0 +1,21 @@
+{
+  "short_name": "Zuryo",
+  "name": "Zuryo - On Demand Fitness",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/HD23f4ZR/Zuryo-Logo.webp",
+      "type": "image/webp",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://i.ibb.co/HD23f4ZR/Zuryo-Logo.webp",
+      "type": "image/webp",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#142B5D",
+  "background_color": "#142B5D",
+  "orientation": "portrait"
+}

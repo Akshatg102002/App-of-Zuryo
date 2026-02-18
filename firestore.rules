@@ -1,0 +1,41 @@
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User Profiles
+    match /users/{userId} {
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow update: if request.auth != null;
+      allow read: if request.auth != null;
+      allow delete: if request.auth != null && request.auth.token.email == 'admin@zuryo.co';
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      // Allow creation by authenticated users
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Allow read by authenticated users
+      allow read: if request.auth != null;
+      
+      // Allow updates if authenticated OR if it's a trainer assignment (Sheet Integration)
+      // We check if the update only touches trainer fields to keep it secure-ish for unauthenticated Sheet calls
+      allow update: if request.auth != null || 
+                   (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['trainerName', 'trainerEmail']));
+
+      // Allow delete by admin
+      allow delete: if request.auth != null && request.auth.token.email == 'admin@zuryo.co';
+    }
+
+    // Trainer Profiles
+    match /trainers/{trainerId} {
+      // Allow write if user is the trainer themself OR if user is the admin
+      allow write: if request.auth != null && (
+        request.auth.uid == trainerId || 
+        request.auth.token.email == 'admin@zuryo.co'
+      );
+      allow read: if request.auth != null;
+    }
+  }
+}
