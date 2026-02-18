@@ -11,13 +11,14 @@ export default defineConfig({
       manifest: {
         name: 'Zuryo - On Demand Fitness',
         short_name: 'Zuryo',
-        description: "India's first community-based On Demand Fitness platform connecting residents with certified trainers in 60 minutes.",
+        description: "India's first community-based On Demand Fitness platform. Book certified trainers to your doorstep in 60 minutes. No contracts.",
         theme_color: '#142B5D',
         background_color: '#142B5D',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
         scope: '/',
+        categories: ["fitness", "health", "lifestyle"],
         icons: [
           {
             src: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg',
@@ -31,10 +32,43 @@ export default defineConfig({
             type: 'image/jpeg',
             purpose: 'maskable'
           }
+        ],
+        screenshots: [
+          {
+            src: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=400&auto=format&fit=crop",
+            sizes: "400x800",
+            type: "image/jpeg",
+            form_factor: "narrow",
+            label: "Book certified trainers instantly"
+          },
+          {
+            src: "https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1200&auto=format&fit=crop",
+            sizes: "1200x800",
+            type: "image/jpeg",
+            form_factor: "wide",
+            label: "Fitness on your terms"
+          }
+        ],
+        shortcuts: [
+          {
+            name: "Book Session",
+            short_name: "Book",
+            description: "Book a fitness trainer now",
+            url: "/book",
+            icons: [{ "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg", "sizes": "192x192" }]
+          },
+          {
+            name: "View Trainers",
+            short_name: "Trainers",
+            description: "Browse available trainers",
+            url: "/trainers",
+            icons: [{ "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg", "sizes": "192x192" }]
+          }
         ]
       },
       workbox: {
         // Caching strategies
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

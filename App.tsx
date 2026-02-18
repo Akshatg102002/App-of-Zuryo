@@ -130,7 +130,8 @@ export const App: React.FC = () => {
 
   // --- Auth & Init ---
   useEffect(() => {
-    const timer = setTimeout(() => setShowSplash(false), 2500);
+    // Increased duration to 2800ms to ensure the CSS fade-out animation (2000ms delay + 700ms duration) completes
+    const timer = setTimeout(() => setShowSplash(false), 2800);
     
     // Store unsubscribe function for profile listener
     let unsubscribeProfile: () => void;
