@@ -47,9 +47,6 @@ export default defineConfig({
                 }
             }
         ],
-        note_taking: {
-            new_note_url: "/book"
-        },
         icons: [
           {
             src: 'https://i.ibb.co/JRS0NMMj/ZUL.png',
