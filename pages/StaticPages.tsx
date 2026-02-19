@@ -1,7 +1,6 @@
 import React from 'react';
 import { ArrowLeft, Mail, Phone, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { LeadCaptureForm } from '../components/LeadCaptureForm';
 
 const PageHeader: React.FC<{ title: string, subtitle?: string }> = ({ title, subtitle }) => {
     const navigate = useNavigate();
@@ -35,42 +34,36 @@ export const About: React.FC = () => (
 );
 
 export const Contact: React.FC = () => (
-    <div className="pt-8 md:pt-4 px-6 pb-20 max-w-5xl mx-auto">
+    <div className="pt-8 md:pt-4 px-6 pb-20 max-w-3xl mx-auto">
         <PageHeader title="Contact Support" subtitle="We are here to help." />
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
-                    <div className="bg-primary/10 p-3 rounded-xl text-primary"><MapPin /></div>
-                    <div>
-                        <h3 className="font-bold text-secondary mb-1">Office Address</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed">3rd Floor, ASR Avenue, off Hosa Road, Choodasandra, Kasavanahalli, Bengaluru, Karnataka 560099</p>
-                    </div>
-                </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
-                    <div className="bg-primary/10 p-3 rounded-xl text-primary"><Mail /></div>
-                    <div>
-                        <h3 className="font-bold text-secondary mb-1">Email Us</h3>
-                        <p className="text-sm text-gray-500">founder@zuryo.co</p>
-                    </div>
-                </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
-                    <div className="bg-primary/10 p-3 rounded-xl text-primary"><Phone /></div>
-                    <div>
-                        <h3 className="font-bold text-secondary mb-1">Call Us</h3>
-                        <p className="text-sm text-gray-500">+91 73537 62555</p>
-                    </div>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                    <h3 className="font-bold text-blue-900 mb-2">Corporate Inquiries?</h3>
-                    <p className="text-sm text-blue-800 leading-relaxed">
-                        Looking for wellness programs for your employees? Fill out the form and select "Corporate Wellness" to get a customized quote.
-                    </p>
+        <div className="space-y-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary"><MapPin /></div>
+                <div>
+                    <h3 className="font-bold text-secondary mb-1">Office Address</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">3rd Floor, ASR Avenue, off Hosa Road, Choodasandra, Kasavanahalli, Bengaluru, Karnataka 560099</p>
                 </div>
             </div>
-
-            <div>
-                <LeadCaptureForm />
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary"><Mail /></div>
+                <div>
+                    <h3 className="font-bold text-secondary mb-1">Email Us</h3>
+                    <p className="text-sm text-gray-500">founder@zuryo.co</p>
+                </div>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
+                <div className="bg-primary/10 p-3 rounded-xl text-primary"><Phone /></div>
+                <div>
+                    <h3 className="font-bold text-secondary mb-1">Call Us</h3>
+                    <p className="text-sm text-gray-500">+91 73537 62555</p>
+                </div>
+            </div>
+            <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                <h3 className="font-bold text-blue-900 mb-2">Corporate Inquiries?</h3>
+                <p className="text-sm text-blue-800 leading-relaxed">
+                    Looking for wellness programs for your employees? Contact us via email or phone for a customized quote.
+                </p>
             </div>
         </div>
     </div>
