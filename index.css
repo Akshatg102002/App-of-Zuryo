@@ -1,0 +1,65 @@
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+}
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overscroll-behavior-y: none; /* Prevent pull-to-refresh on body */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #142B5D;
+  color: #FFFFFF;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* Prevent body scroll, handle in main container */
+  height: 100%;
+  width: 100%;
+  position: fixed; /* Fix iOS bounce */
+}
+
+/* Custom Scrollbar Hide */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: rgba(20, 43, 93, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Selection Color */
+::selection {
+  background: #FFB435;
+  color: #142B5D;
+}
+
+/* Button Active State for Touch */
+button:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
+}
+
+/* Safe Area Padding Utilities */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}

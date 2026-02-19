@@ -24,27 +24,29 @@ import { ToastProvider, useToast } from './components/ToastContext';
 declare global { interface Window { Razorpay: any; } }
 
 const SplashScreen = () => (
-    <div className="fixed inset-0 z-[200] bg-secondary flex flex-col items-center justify-center animate-out fade-out duration-700 delay-2000 fill-mode-forwards pointer-events-none">
+    <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-out fade-out duration-700 delay-2000 fill-mode-forwards pointer-events-none">
         <div className="relative flex items-center justify-center">
             {/* Outer Ring */}
-            <div className="absolute w-48 h-48 border-2 border-white/5 rounded-full"></div>
+            <div className="absolute w-48 h-48 border-2 border-primary/10 rounded-full"></div>
             
             {/* Spinning Rings */}
             <div className="absolute w-32 h-32 border-4 border-primary/20 rounded-full"></div>
             <div className="absolute w-32 h-32 border-t-4 border-primary rounded-full animate-[spin_1s_linear_infinite]"></div>
             
             {/* Logo Image */}
-            <img 
-                src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" 
-                alt="Zuryo" 
-                className="w-24 h-24 object-contain rounded-full relative z-10"
-            />
+            <div className="relative z-10 bg-white rounded-full p-4 shadow-lg">
+                <img 
+                    src="https://i.ibb.co/4n8Y46LD/Zul-bg.png" 
+                    alt="Zuryo" 
+                    className="w-24 h-24 object-contain"
+                />
+            </div>
         </div>
         <div className="mt-8 flex flex-col items-center gap-2">
-            <div className="h-1 w-20 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-1 w-20 bg-gray-100 rounded-full overflow-hidden">
                 <div className="h-full bg-primary w-full animate-[translateX_1s_ease-in-out_infinite]"></div>
             </div>
-            <span className="text-primary/80 font-bold text-[10px] tracking-[0.4em] uppercase">
+            <span className="text-secondary font-bold text-[10px] tracking-[0.4em] uppercase">
                 On Demand Fitness
             </span>
         </div>
@@ -74,9 +76,10 @@ const PageLoader = () => {
     if (!loading) return null;
 
     return (
-        <div className="fixed inset-0 z-[90] bg-white/80 backdrop-blur-sm flex items-center justify-center animate-in fade-in duration-200">
-            <div className="bg-white p-4 rounded-full shadow-2xl">
-                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        <div className="fixed inset-0 z-[90] bg-white/90 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-200">
+            <div className="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-4 border border-gray-100">
+                <img src="https://i.ibb.co/4n8Y46LD/Zul-bg.png" alt="Loading..." className="w-12 h-12 object-contain animate-pulse" />
+                <Loader2 className="w-6 h-6 text-primary animate-spin" />
             </div>
         </div>
     );
@@ -106,11 +109,11 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary">
+        <div className="min-h-screen bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary touch-manipulation">
              {showNav && <TopNav />}
              
              {/* Adjusted top padding for desktop. Removed extra pb-28 on mobile to fix footer whitespace */}
-             <main className="flex-1 w-full h-screen overflow-y-auto no-scrollbar md:pt-28 pb-0 md:pb-0 scroll-smooth relative">
+             <main className="flex-1 w-full h-screen overflow-y-auto no-scrollbar md:pt-28 pb-0 md:pb-0 scroll-smooth relative overscroll-contain">
                 {children}
                 <Footer />
              </main>

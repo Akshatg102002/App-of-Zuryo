@@ -25,7 +25,7 @@ export const BottomNav: React.FC = () => {
             <button
             key={item.path}
             onClick={() => navigate(item.path)}
-            className={`flex flex-col items-center justify-center space-y-1.5 w-14 transition-all duration-300 ${
+            className={`flex flex-col items-center justify-center space-y-1.5 w-14 transition-all duration-300 active:scale-95 ${
                 isActive ? 'text-primary translate-y-[-2px]' : 'text-gray-400 hover:text-white'
             }`}
             >
