@@ -109,11 +109,11 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary touch-manipulation">
+        <div className="h-[100dvh] bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary touch-manipulation">
              {showNav && <TopNav />}
              
              {/* Adjusted top padding for desktop. Removed extra pb-28 on mobile to fix footer whitespace */}
-             <main className="flex-1 w-full h-screen overflow-y-auto no-scrollbar md:pt-28 pb-0 md:pb-0 scroll-smooth relative overscroll-contain">
+             <main className="flex-1 w-full overflow-y-auto md:pt-28 pb-0 md:pb-0 scroll-smooth relative overscroll-contain">
                 {children}
                 <Footer />
              </main>
