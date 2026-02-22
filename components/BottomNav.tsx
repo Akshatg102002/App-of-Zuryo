@@ -18,23 +18,28 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-6 left-4 right-4 bg-[#142B5D] backdrop-blur-xl border border-white/10 shadow-2xl py-3 px-2 flex justify-between items-center z-50 md:hidden rounded-3xl">
+    <div className="fixed bottom-0 left-0 right-0 bg-[#142B5D] border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.2)] pb-safe pt-3 px-4 flex justify-around items-end z-50 md:hidden rounded-t-[24px]">
       {navItems.map((item) => {
         const isActive = currentPath === item.path;
         return (
             <button
             key={item.path}
             onClick={() => navigate(item.path)}
-            className={`flex flex-col items-center justify-center w-full transition-all duration-300 active:scale-95 group ${
+            className={`group flex flex-col items-center justify-end pb-1 w-16 transition-all duration-300 ${
                 isActive ? 'text-primary' : 'text-gray-400 hover:text-white'
             }`}
             >
-            <div className={`p-2 rounded-2xl transition-all duration-300 mb-0.5 ${isActive ? 'bg-white/10 translate-y-0' : 'group-hover:-translate-y-1'}`}>
-                 <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
-            </div>
-            <span className={`text-[9px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 h-0 overflow-hidden translate-y-2'}`}>
-                {item.label}
-            </span>
+                <div className={`transition-all duration-300 ${isActive ? 'mb-1 transform scale-110' : 'mb-0'}`}>
+                    <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                </div>
+                
+                <span className={`text-[9px] font-bold uppercase tracking-widest transition-all duration-300 overflow-hidden ${
+                    isActive ? 'h-auto opacity-100 translate-y-0' : 'h-0 opacity-0 translate-y-2'
+                }`}>
+                    {item.label}
+                </span>
+                
+                <div className={`w-1 h-1 rounded-full bg-primary mt-1 transition-all duration-300 ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}`}></div>
             </button>
         );
       })}
