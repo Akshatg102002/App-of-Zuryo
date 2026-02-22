@@ -218,7 +218,19 @@ export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLo
             <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">Support & Legal</h3>
             <MenuItem icon={<Info size={20} />} label="About Zuryo" onClick={() => navigate('/about-us')} />
             <MenuItem icon={<FileText size={20} />} label="Terms & Policies" onClick={() => navigate('/terms')} />
+            <MenuItem icon={<ShieldCheck size={20} />} label="Privacy Policy" onClick={() => navigate('/privacy-policy')} />
+            <MenuItem icon={<FileText size={20} />} label="Refund Policy" onClick={() => navigate('/refund-policy')} />
+            <MenuItem icon={<ShieldCheck size={20} />} label="POSH Policy" onClick={() => navigate('/posh-policy')} />
             <MenuItem icon={<Phone size={20} />} label="Contact Support" onClick={() => navigate('/contact')} />
+        </div>
+
+        <div className="mb-8 text-center">
+            <p className="text-gray-400 text-xs">
+                3rd Floor, ASR Avenue, off Hosa Road, Choodasandra, Bengaluru, Karnataka 560099
+            </p>
+            <p className="text-gray-400 text-xs mt-1">
+                +91 73537 62555 | founder@zuryo.co
+            </p>
         </div>
 
         <button onClick={onLogout} className="w-full p-4 bg-red-50 text-red-500 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-red-100 transition-colors">

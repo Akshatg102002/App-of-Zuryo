@@ -13,7 +13,6 @@ import { AdminDashboard } from './pages/AdminDashboard';
 import { ResetPassword } from './pages/ResetPassword';
 import { Onboarding } from './components/Onboarding';
 import { Auth } from './components/Auth';
-import { Footer } from './components/Footer';
 import { logoutUser } from './services/db';
 import { auth, db } from './services/firebase'; 
 import firebase from 'firebase/compat/app';
@@ -35,11 +34,11 @@ const SplashScreen = () => (
             <div className="absolute w-32 h-32 border-t-4 border-primary rounded-full animate-[spin_1s_linear_infinite]"></div>
             
             {/* Logo Image */}
-            <div className="relative z-10 bg-white rounded-full p-4 shadow-lg">
+            <div className="relative z-10 bg-white rounded-full p-6 shadow-lg">
                 <img 
                     src="https://i.ibb.co/JRS0NMMj/ZUL.png" 
                     alt="Zuryo" 
-                    className="w-24 h-24 object-contain"
+                    className="w-24 h-24 object-contain p-2"
                 />
             </div>
         </div>
@@ -79,7 +78,7 @@ const PageLoader = () => {
     return (
         <div className="fixed inset-0 z-[90] bg-white/90 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-200">
             <div className="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-4 border border-gray-100">
-                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-12 h-12 object-contain animate-pulse" />
+                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-12 h-12 object-contain animate-pulse p-1" />
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
             </div>
         </div>
@@ -116,7 +115,6 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
              {/* Adjusted top padding for desktop. Removed extra pb-28 on mobile to fix footer whitespace */}
              <main className="flex-1 w-full overflow-y-auto md:pt-28 pb-0 md:pb-0 scroll-smooth relative overscroll-contain">
                 {children}
-                <Footer />
              </main>
 
              {showNav && <BottomNav />}

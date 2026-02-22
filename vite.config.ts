@@ -91,7 +91,7 @@ export default defineConfig({
             src: "https://i.ibb.co/JRS0NMMj/ZUL.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "maskable"
+            purpose: "any"
           }
         ],
         screenshots: [
