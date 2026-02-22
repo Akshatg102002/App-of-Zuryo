@@ -19,6 +19,7 @@ import { auth, db } from './services/firebase';
 import firebase from 'firebase/compat/app';
 import { X, Loader2, WifiOff } from 'lucide-react';
 import { ToastProvider, useToast } from './components/ToastContext';
+import { AuthPage } from './pages/AuthPage';
 
 // Razorpay global
 declare global { interface Window { Razorpay: any; } }
@@ -124,7 +125,6 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 };
 
 export const App: React.FC = () => {
-  const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentUser, setCurrentUser] = useState<firebase.User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -171,8 +171,6 @@ export const App: React.FC = () => {
       setUserProfile(null);
   };
 
-  const openAuth = () => setShowAuthModal(true);
-
   if (authChecking) return null;
 
   return (
@@ -186,21 +184,20 @@ export const App: React.FC = () => {
             <PageLoader />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/login" element={<AuthPage />} />
                 <Route path="/book" element={
                     <BookSession 
                         currentUser={currentUser} 
                         userProfile={userProfile} 
-                        onLoginReq={openAuth} 
                     />
                 } />
                 <Route path="/trainers" element={<Trainers />} />
-                <Route path="/bookings" element={<Bookings onLoginReq={openAuth} />} />
+                <Route path="/bookings" element={<Bookings />} />
                 <Route path="/profile" element={
                     <Profile 
                         currentUser={currentUser}
                         userProfile={userProfile}
                         onLogout={handleLogout} 
-                        onLoginReq={openAuth} 
                     />
                 } />
                 <Route path="/trainer-portal" element={<TrainerPortal />} />
@@ -218,26 +215,6 @@ export const App: React.FC = () => {
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </AppLayout>
-
-        {/* Auth Modal */}
-        {showAuthModal && (
-            <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-                <div className="bg-white w-full max-w-md rounded-3xl overflow-hidden relative shadow-2xl animate-in zoom-in-95 duration-200">
-                    <button onClick={() => setShowAuthModal(false)} className="absolute top-4 right-4 z-50 w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-secondary hover:bg-gray-100 transition-colors">
-                        <X size={18} />
-                    </button>
-                    <div className="max-h-[90vh] overflow-y-auto">
-                        <Auth 
-                            onLoginSuccess={() => setShowAuthModal(false)} 
-                            onTrainerLogin={() => {
-                                setShowAuthModal(false);
-                                window.location.href = '/trainer-portal'; 
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
-        )}
         </BrowserRouter>
     </ToastProvider>
   );

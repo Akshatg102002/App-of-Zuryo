@@ -7,11 +7,9 @@ import { auth } from '../services/firebase';
 import { useToast } from '../components/ToastContext';
 import { useNavigate } from 'react-router-dom';
 
-interface BookingsProps {
-    onLoginReq?: () => void;
-}
+interface BookingsProps {}
 
-export const Bookings: React.FC<BookingsProps> = ({ onLoginReq }) => {
+export const Bookings: React.FC<BookingsProps> = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -60,7 +58,7 @@ export const Bookings: React.FC<BookingsProps> = ({ onLoginReq }) => {
                     Please log in to view your upcoming sessions and booking history.
                 </p>
             </div>
-            <button onClick={onLoginReq} className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+            <button onClick={() => navigate('/login')} className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
                 Log In
             </button>
         </div>

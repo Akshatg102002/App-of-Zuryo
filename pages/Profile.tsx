@@ -11,10 +11,9 @@ interface ProfileProps {
     currentUser: any;
     userProfile: UserProfile | null;
     onLogout: () => void;
-    onLoginReq: () => void;
 }
 
-export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLogout, onLoginReq }) => {
+export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLogout }) => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -81,7 +80,7 @@ export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLo
                     Log in to view your stats, manage bookings, and update your health profile.
                 </p>
             </div>
-            <button onClick={onLoginReq} className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
+            <button onClick={() => navigate('/login')} className="bg-primary text-white px-8 py-3.5 rounded-2xl font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
                 Log In / Sign Up
             </button>
         </div>

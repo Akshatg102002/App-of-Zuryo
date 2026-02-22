@@ -129,29 +129,7 @@ export const Home: React.FC = () => {
         <MessageCircle size={32} fill="currentColor" />
       </a>
 
-      {/* Mobile Header */}
-      <header className="px-6 py-6 flex justify-between items-center md:hidden mb-6">
-        <div className="flex items-center gap-3">
-             <div className="w-8 h-8 flex items-center justify-center rounded-full overflow-hidden border border-gray-100">
-                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" className="w-full h-full object-cover" />
-            </div>
-            <div className="flex flex-col">
-                 <span className="text-xl font-black text-secondary tracking-tighter leading-none uppercase">ZURYO</span>
-                 <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">On Demand Fitness</span>
-            </div>
-        </div>
-        
-        <div className="flex items-center gap-4">
-            <div 
-                onClick={() => navigate('/profile')}
-                className="w-10 h-10 rounded-full overflow-hidden border border-gray-200 shadow-sm cursor-pointer bg-white"
-            >
-                <div className="w-full h-full bg-secondary flex items-center justify-center text-white font-bold text-sm">
-                    {user?.name ? user.name.charAt(0).toUpperCase() : 'P'}
-                </div>
-            </div>
-        </div>
-      </header>
+      {/* Mobile Header Removed */}
 
       {/* IMMERSIVE HERO SECTION */}
       <RevealOnScroll>

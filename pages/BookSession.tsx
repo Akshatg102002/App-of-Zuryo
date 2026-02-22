@@ -11,10 +11,9 @@ import { useToast } from '../components/ToastContext';
 interface BookSessionProps {
     currentUser: firebase.User | null;
     userProfile: UserProfile | null;
-    onLoginReq: () => void;
 }
 
-export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfile, onLoginReq }) => {
+export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfile }) => {
     const navigate = useNavigate();
     const { showToast } = useToast();
     
@@ -121,7 +120,7 @@ export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfi
             }
 
             if (!currentUser) {
-                onLoginReq();
+                navigate('/login');
                 return;
             }
 
