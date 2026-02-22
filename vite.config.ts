@@ -23,13 +23,7 @@ export default defineConfig({
         theme_color: "#142B5D",
         background_color: "#142B5D",
         orientation: "portrait",
-        display_override: [
-          "window-controls-overlay",
-          "standalone",
-          "browser",
-          "tabbed",
-          "sidebar"
-        ],
+        display_override: ["standalone", "window-controls-overlay"],
         launch_handler: {
           client_mode: "navigate-existing"
         },
