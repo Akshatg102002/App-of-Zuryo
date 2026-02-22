@@ -36,7 +36,7 @@ const SplashScreen = () => (
             {/* Logo Image */}
             <div className="relative z-10 bg-white rounded-full p-4 shadow-lg">
                 <img 
-                    src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo192.webp" 
+                    src="https://i.ibb.co/JRS0NMMj/ZUL.png" 
                     alt="Zuryo" 
                     className="w-24 h-24 object-contain"
                 />
@@ -78,7 +78,7 @@ const PageLoader = () => {
     return (
         <div className="fixed inset-0 z-[90] bg-white/90 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-200">
             <div className="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-4 border border-gray-100">
-                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo192.webp" alt="Loading..." className="w-12 h-12 object-contain animate-pulse" />
+                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-12 h-12 object-contain animate-pulse" />
                 <Loader2 className="w-6 h-6 text-primary animate-spin" />
             </div>
         </div>

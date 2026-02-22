@@ -41,7 +41,7 @@ export const Contact: React.FC = () => (
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-start gap-4 hover:shadow-md transition-all">
                 <div className="bg-primary/10 p-3 rounded-xl text-primary"><MapPin /></div>
                 <div>
-                    <h3 className="font-bold text-secondary mb-1">Office Address</h3>
+                    <h3 className="font-bold text-secondary mb-1">Registered Office</h3>
                     <p className="text-sm text-gray-500 leading-relaxed">3rd Floor, ASR Avenue, off Hosa Road, Choodasandra, Kasavanahalli, Bengaluru, Karnataka 560099</p>
                 </div>
             </div>
