@@ -130,7 +130,7 @@ export const Home: React.FC = () => {
       </a>
 
       {/* Mobile Header */}
-      <header className="px-6 pt-6 flex justify-between items-center md:hidden mb-6">
+      <header className="px-6 py-6 flex justify-between items-center md:hidden mb-6">
         <div className="flex items-center gap-3">
              <div className="w-8 h-8 flex items-center justify-center rounded-full overflow-hidden border border-gray-100">
                 <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" className="w-full h-full object-cover" />
