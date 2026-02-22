@@ -49,30 +49,30 @@ export default defineConfig({
         ],
         icons: [
           {
-            src: 'https://i.ibb.co/4n8Y46LD/Zul-bg.png',
+            src: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo192.webp',
             sizes: '192x192',
-            type: 'image/png',
+            type: 'image/webp',
             purpose: 'any'
           },
           {
-            src: 'https://i.ibb.co/4n8Y46LD/Zul-bg.png',
+            src: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo512.webp',
             sizes: '512x512',
-            type: 'image/png',
+            type: 'image/webp',
             purpose: 'maskable'
           }
         ],
         screenshots: [
           {
-            src: "https://i.ibb.co/4n8Y46LD/Zul-bg.png",
+            src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo512.webp",
             sizes: "512x512",
-            type: "image/png",
+            type: "image/webp",
             form_factor: "narrow",
             label: "Mobile Booking"
           },
           {
-            src: "https://i.ibb.co/4n8Y46LD/Zul-bg.png",
+            src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo512.webp",
             sizes: "512x512",
-            type: "image/png",
+            type: "image/webp",
             form_factor: "wide",
             label: "Fitness on your terms"
           }
@@ -83,14 +83,14 @@ export default defineConfig({
             short_name: "Book",
             description: "Book a fitness trainer now",
             url: "/book",
-            icons: [{ "src": "https://i.ibb.co/4n8Y46LD/Zul-bg.png", "sizes": "192x192" }]
+            icons: [{ "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo192.webp", "sizes": "192x192" }]
           },
           {
             name: "View Trainers",
             short_name: "Trainers",
             description: "Browse available trainers",
             url: "/trainers",
-            icons: [{ "src": "https://i.ibb.co/4n8Y46LD/Zul-bg.png", "sizes": "192x192" }]
+            icons: [{ "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo192.webp", "sizes": "192x192" }]
           }
         ]
       },
