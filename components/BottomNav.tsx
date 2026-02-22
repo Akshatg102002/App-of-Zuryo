@@ -18,19 +18,23 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#142B5D]/95 backdrop-blur-xl border-t border-white/10 shadow-up pb-safe pt-3 px-2 flex justify-around items-center z-40 h-[84px] md:hidden rounded-t-[30px]">
+    <div className="fixed bottom-6 left-4 right-4 bg-[#142B5D] backdrop-blur-xl border border-white/10 shadow-2xl py-3 px-2 flex justify-between items-center z-50 md:hidden rounded-3xl">
       {navItems.map((item) => {
         const isActive = currentPath === item.path;
         return (
             <button
             key={item.path}
             onClick={() => navigate(item.path)}
-            className={`flex flex-col items-center justify-center space-y-1.5 w-14 transition-all duration-300 active:scale-95 ${
-                isActive ? 'text-primary translate-y-[-2px]' : 'text-gray-400 hover:text-white'
+            className={`flex flex-col items-center justify-center w-full transition-all duration-300 active:scale-95 group ${
+                isActive ? 'text-primary' : 'text-gray-400 hover:text-white'
             }`}
             >
-            <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
-            <span className={`text-[10px] font-medium transition-opacity ${isActive ? 'opacity-100' : 'opacity-80'}`}>{item.label}</span>
+            <div className={`p-2 rounded-2xl transition-all duration-300 mb-0.5 ${isActive ? 'bg-white/10 translate-y-0' : 'group-hover:-translate-y-1'}`}>
+                 <item.icon size={20} strokeWidth={isActive ? 2.5 : 2} />
+            </div>
+            <span className={`text-[9px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 h-0 overflow-hidden translate-y-2'}`}>
+                {item.label}
+            </span>
             </button>
         );
       })}

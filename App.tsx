@@ -112,8 +112,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="h-[100dvh] bg-gray-50 flex flex-col font-sans w-full overflow-hidden select-none text-secondary touch-manipulation">
              {showNav && <TopNav />}
              
-             {/* Adjusted top padding for desktop. Removed extra pb-28 on mobile to fix footer whitespace */}
-             <main className="flex-1 w-full overflow-y-auto md:pt-28 pb-0 md:pb-0 scroll-smooth relative overscroll-contain">
+             {/* Adjusted top padding for desktop. Added pb-28 for mobile to account for floating nav */}
+             <main className="flex-1 w-full overflow-y-auto md:pt-28 pb-28 md:pb-0 scroll-smooth relative overscroll-contain">
                 {children}
              </main>
 
