@@ -28,51 +28,65 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const SUCCESS_STORIES = [
-    {
-        id: 's1',
-        name: 'Rahul K.',
-        title: 'Lost 12kg in 3 Months',
-        thumbnail: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-working-out-with-battle-ropes-at-gym-22839-large.mp4'
-    },
-    {
-        id: 's2',
-        name: 'Sneha P.',
-        title: 'Post-Pregnancy Fit',
-        thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-doing-yoga-on-the-beach-at-sunset-40695-large.mp4'
-    },
-    {
-        id: 's3',
-        name: 'Arjun M.',
-        title: 'Muscle Gain Journey',
-        thumbnail: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-muscular-man-lifting-weights-in-gym-22843-large.mp4'
-    },
-    {
-        id: 's4',
-        name: 'Priya D.',
-        title: 'Yoga for Flexibility',
-        thumbnail: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=800&auto=format&fit=crop',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-young-woman-stretching-her-legs-at-home-40698-large.mp4'
-    }
+  {
+    id: 's1',
+    name: 'Anita singh',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV6_720p.mp4'
+  },
+  {
+    id: 's2',
+    name: 'Deep',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Success_Stories.mp4'
+  },
+  {
+    id: 's3',
+    name: 'Shweta',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV3_720p.mp4'
+  },
+  {
+    id: 's4',
+    name: 'Deepak & Neha',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/DN-Akshat-Garg-720p-h264.mp4'
+  },
+  {
+    id: 's5',
+    name: 'Shreaya',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV2_720p.mp4'
+  },
+  {
+    id: 's6',
+    name: 'Vikramjit',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV4_720p.mp4'
+  },
+  {
+    id: 's7',
+    name: 'Tanmay',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV1_720p.mp4'
+  },
+  {
+    id: 's8',
+    name: 'Manjeet',
+    title: '',
+    thumbnail: 'https://images.unsplash.com/photo-1544367563-12123d8966cd?q=80&w=800&auto=format&fit=crop',
+    videoUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/ZV5_720p.mp4'
+  }
 ];
 
 export const MOCK_TRAINERS: Trainer[] = [
-  {
-    id: 't1',
-    name: 'Biju R.',
-    specialties: ['Strength & Muscle', 'Weight Loss', 'Posture Correction'],
-    rating: 4.9,
-    reviews: 145,
-    price: 499,
-    imageUrl: 'https://images.unsplash.com/photo-1594824476969-51c44efd40d3?q=80&w=800&auto=format&fit=crop',
-    bio: 'Our most experienced trainer with over 15+ years of expertise. Specializes in transforming bodies through comprehensive strength and mobility training.',
-    distance: '0.8 km away',
-    available: true,
-    experience: 15,
-    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
-  },
   {
     id: 't2',
     name: 'Ishaq M.',
@@ -80,11 +94,153 @@ export const MOCK_TRAINERS: Trainer[] = [
     rating: 4.8,
     reviews: 98,
     price: 449,
-    imageUrl: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=800&auto=format&fit=crop',
-    bio: 'Dedicated professional specializing in building strength and achieving sustainable weight loss through personalized cardio programs. 5+ Years Experience.',
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Ishaq.jpeg',
+    bio: 'Experienced fitness professional specializing in strength training, cardiovascular conditioning, and sustainable weight loss through structured and personalized programs.',
     distance: '1.2 km away',
     available: true,
     experience: 5,
-    certifications: ['Certified Personal Trainer', 'Sports Nutritionist']
+    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
+  },
+  {
+    id: 't3',
+    name: 'Krithika T.',
+    specialties: ['Muscle Training', 'Cardio', 'Fitness for Women'],
+    rating: 4.9,
+    reviews: 112,
+    price: 499,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Krithika.jpeg',
+    bio: 'Certified fitness trainer focused on strength development, cardiovascular fitness, and women-centric training programs tailored to individual goals.',
+    distance: '2.0 km away',
+    available: true,
+    experience: 2,
+    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
+  },
+  {
+    id: 't4',
+    name: 'Maheswaran',
+    specialties: ['Functional Strength', 'Mobility', 'Posture'],
+    rating: 4.7,
+    reviews: 86,
+    price: 449,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Maheswrn.jpeg',
+    bio: 'Specializes in fitness assessments and corrective exercise programs aimed at improving posture, mobility, and overall movement efficiency.',
+    distance: '3.5 km away',
+    available: true,
+    experience: 3,
+    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
+  },
+  {
+    id: 't6',
+    name: 'Ravinayaka',
+    specialties: ['Strength Training', 'Cardio', 'Endurance'],
+    rating: 4.6,
+    reviews: 65,
+    price: 399,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/RaviNayak-scaled.jpeg',
+    bio: 'Fitness trainer with experience in strength training and cardiovascular conditioning, delivering balanced programs to improve endurance and overall fitness.',
+    distance: '2.8 km away',
+    available: true,
+    experience: 4,
+    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
+  },
+  {
+    id: 't7',
+    name: 'Isha A.',
+    specialties: ['Lean Muscle', 'Weight Loss', 'Mobility'],
+    rating: 4.8,
+    reviews: 90,
+    price: 499,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Isha.jpeg',
+    bio: 'Provides structured training programs focused on lean muscle development, weight management, and mobility improvement for long-term fitness.',
+    distance: '4.1 km away',
+    available: true,
+    experience: 3,
+    certifications: ['Certified Fitness Trainer', 'CPR & First Aid']
+  },
+  {
+    id: 't8',
+    name: 'Biju R.',
+    specialties: [
+      'Strength & Muscle Training',
+      'Weight Loss & Cardio',
+      'Posture & Mobility Correction'
+    ],
+    rating: 4.9,
+    reviews: 120,
+    price: 699,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Biju_Trainer.jpeg',
+    bio: 'Senior fitness professional with extensive experience in designing structured, personalized training programs focused on strength, weight management, and mobility.',
+    distance: '3.2 km away',
+    available: true,
+    experience: 15,
+    certifications: [
+      'Certified Fitness Trainer',
+      'CPR & First Aid Certified'
+    ]
+  },
+  {
+    id: 't9',
+    name: 'Goutam',
+    specialties: [
+      'Strength Training',
+      'Posture Correction',
+      'Mobility Improvement'
+    ],
+    rating: 4.6,
+    reviews: 65,
+    price: 399,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Goutam_trainer.jpeg',
+    bio: 'Focuses on strength development and posture correction to support long-term physical health, movement quality, and injury prevention.',
+    distance: '5.0 km away',
+    available: true,
+    experience: 3,
+    certifications: [
+      'Certified Fitness Trainer',
+      'CPR & First Aid'
+    ]
+  },
+  {
+    id: 't10',
+    name: 'Kiran',
+    specialties: [
+      'Strength Training',
+      'Weight Management',
+      'Mobility & Functional Fitness'
+    ],
+    rating: 4.7,
+    reviews: 72,
+    price: 449,
+    imageUrl: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/Kiran.jpeg',
+    bio: 'Certified fitness trainer delivering assessment-based training programs focused on strength, weight management, mobility, and safe long-term progress.',
+    distance: '3.0 km away',
+    available: true,
+    experience: 4,
+    certifications: [
+      'Certified Fitness Trainer',
+      'CPR & First Aid'
+    ]
+  },
+  {
+    "id": "t11",
+    "name": "Varun",
+    "specialties": [
+      "Muscle Building",
+      "Fat Loss Transformation",
+      "HIIT & Endurance Training"
+    ],
+    "rating": 4.8,
+    "reviews": 96,
+    "price": 499,
+    "imageUrl": "https://socialfoundationindia.org/wp-content/uploads/2026/02/Varun.jpeg",
+    "bio": "Experienced fitness coach with 5+ years of expertise in body transformations, strength conditioning, and high-intensity training programs tailored to individual goals.",
+    "distance": "2.5 km away",
+    "available": true,
+    "experience": 6,
+    "certifications": [
+      "Certified Personal Trainer",
+      "Nutrition & Lifestyle Coach",
+      "CPR & First Aid"
+    ]
   }
+
 ];
