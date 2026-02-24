@@ -25,7 +25,21 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
     const [generatedOtp, setGeneratedOtp] = useState('');
 
     const sendOTPEmail = async (targetEmail: string, code: string) => {
-        console.log(`[SECURITY] OTP for ${targetEmail}: ${code}`);
+        try {
+            const response = await fetch('/api/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: targetEmail, otp: code }),
+            });
+            
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.error || 'Failed to send email');
+            }
+        } catch (err: any) {
+            console.error("Email API Error:", err);
+            throw err;
+        }
     };
 
     const nextStep = () => {
