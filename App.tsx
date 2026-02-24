@@ -24,29 +24,29 @@ import { AuthPage } from './pages/AuthPage';
 declare global { interface Window { Razorpay: any; } }
 
 const SplashScreen = () => (
-    <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-out fade-out duration-700 delay-2000 fill-mode-forwards pointer-events-none">
+    <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-out fade-out duration-500 delay-1000 fill-mode-forwards pointer-events-none">
         <div className="relative flex items-center justify-center">
             {/* Outer Ring */}
-            <div className="absolute w-48 h-48 border-2 border-primary/10 rounded-full"></div>
+            <div className="absolute w-40 h-40 border-2 border-primary/10 rounded-full"></div>
             
             {/* Spinning Rings */}
-            <div className="absolute w-32 h-32 border-4 border-primary/20 rounded-full"></div>
-            <div className="absolute w-32 h-32 border-t-4 border-primary rounded-full animate-[spin_1s_linear_infinite]"></div>
+            <div className="absolute w-28 h-28 border-4 border-primary/20 rounded-full"></div>
+            <div className="absolute w-28 h-28 border-t-4 border-primary rounded-full animate-[spin_0.8s_linear_infinite]"></div>
             
             {/* Logo Image */}
-            <div className="relative z-10 bg-white rounded-full p-6 shadow-lg">
+            <div className="relative z-10 bg-white rounded-full p-4 shadow-sm">
                 <img 
                     src="https://i.ibb.co/JRS0NMMj/ZUL.png" 
                     alt="Zuryo" 
-                    className="w-24 h-24 object-contain p-2"
+                    className="w-20 h-20 object-contain p-1"
                 />
             </div>
         </div>
-        <div className="mt-8 flex flex-col items-center gap-2">
-            <div className="h-1 w-20 bg-gray-100 rounded-full overflow-hidden">
-                <div className="h-full bg-primary w-full animate-[translateX_1s_ease-in-out_infinite]"></div>
-            </div>
-            <span className="text-secondary font-bold text-[10px] tracking-[0.4em] uppercase">
+        <div className="mt-6 flex flex-col items-center gap-2">
+            <span className="text-secondary font-black text-xs tracking-[0.3em] uppercase">
+                ZURYO
+            </span>
+            <span className="text-gray-400 font-bold text-[8px] tracking-[0.2em] uppercase">
                 On Demand Fitness
             </span>
         </div>
@@ -131,8 +131,8 @@ export const App: React.FC = () => {
 
   // --- Auth & Init ---
   useEffect(() => {
-    // Increased duration to 2800ms to ensure the CSS fade-out animation (2000ms delay + 700ms duration) completes
-    const timer = setTimeout(() => setShowSplash(false), 2800);
+    // Faster splash screen: 1500ms total (1000ms delay + 500ms fade)
+    const timer = setTimeout(() => setShowSplash(false), 1500);
     
     // Store unsubscribe function for profile listener
     let unsubscribeProfile: () => void;

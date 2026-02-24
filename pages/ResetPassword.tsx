@@ -59,10 +59,9 @@ export const ResetPassword: React.FC = () => {
              <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full blur-[80px] -ml-16 -mb-16"></div>
 
              <div className="w-full max-w-md bg-white relative z-10 animate-in fade-in zoom-in duration-300">
-                <div className="text-center mb-8">
-                    <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" className="w-24 h-24 rounded-full object-cover mx-auto mb-4" alt="Zuryo" />
-                    <h1 className="text-3xl font-extrabold text-secondary">Reset Password</h1>
-                    <p className="text-gray-500 text-sm mt-2">Create a strong new password for your account</p>
+                <div className="text-center mb-6">
+                    <h1 className="text-2xl font-black text-secondary tracking-tight">Reset Password</h1>
+                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mt-1">Create a strong new password</p>
                 </div>
 
                 {status === 'SUCCESS' ? (
@@ -77,48 +76,47 @@ export const ResetPassword: React.FC = () => {
                     </div>
                 ) : (
                     <form onSubmit={handleReset} className="space-y-4">
-                        <div className="relative">
-                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">New Password</label>
+                        <div>
+                            <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 ml-1">New Password</label>
                             <input 
                                 type={showPass ? "text" : "password"}
                                 required
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                className="w-full p-4 bg-gray-50 rounded-xl border border-gray-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none font-semibold transition-all text-gray-900 placeholder:text-gray-400"
+                                className="w-full p-3.5 bg-gray-50 rounded-2xl border border-gray-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none font-bold transition-all text-secondary placeholder:text-gray-300"
                                 placeholder="••••••••"
                             />
                         </div>
 
                         <div className="relative">
-                            <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Confirm Password</label>
+                            <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1 ml-1">Confirm Password</label>
                             <input 
                                 type={showPass ? "text" : "password"}
                                 required
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="w-full p-4 bg-gray-50 rounded-xl border border-gray-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none font-semibold transition-all text-gray-900 placeholder:text-gray-400"
+                                className="w-full p-3.5 bg-gray-50 rounded-2xl border border-gray-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none font-bold transition-all text-secondary placeholder:text-gray-300"
                                 placeholder="••••••••"
                             />
                              <button 
                                 type="button" 
                                 onClick={() => setShowPass(!showPass)}
-                                className="absolute right-4 top-9 text-gray-400 hover:text-gray-600"
+                                className="absolute right-4 top-[38px] text-gray-300 hover:text-gray-500"
                             >
                                 {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
 
                         {status === 'ERROR' && (
-                            <div className="flex items-start gap-2 p-3 bg-red-50 text-red-600 text-xs font-bold rounded-lg">
-                                <AlertCircle size={16} className="shrink-0 mt-0.5" />
-                                <span>{errorMsg}</span>
+                            <div className="p-3 bg-red-50 text-red-600 text-[10px] font-bold rounded-xl text-center uppercase tracking-wider">
+                                {errorMsg}
                             </div>
                         )}
 
                         <button 
                             type="submit" 
                             disabled={loading || !oobCode}
-                            className="w-full bg-secondary text-white py-4 rounded-xl font-bold shadow-lg shadow-secondary/20 flex items-center justify-center gap-2 mt-4 hover:bg-slate-800 transition-all disabled:opacity-70"
+                            className="w-full bg-secondary text-white py-4 rounded-2xl font-bold shadow-xl shadow-secondary/10 flex items-center justify-center gap-2 mt-2 hover:bg-slate-800 transition-all disabled:opacity-70"
                         >
                             {loading ? 'Updating...' : 'Set New Password'} 
                             {!loading && <ArrowRight size={18} />}
