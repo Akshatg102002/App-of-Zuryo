@@ -33,8 +33,16 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
             });
             
             if (!response.ok) {
-                const data = await response.json();
-                throw new Error(data.error || 'Failed to send email');
+                const text = await response.text();
+                let errorMessage = 'Failed to send email';
+                try {
+                    const data = JSON.parse(text);
+                    errorMessage = data.error || errorMessage;
+                } catch (e) {
+                    errorMessage = `Server Error: ${response.status} ${response.statusText}`;
+                    console.error("Non-JSON error response:", text);
+                }
+                throw new Error(errorMessage);
             }
         } catch (err: any) {
             console.error("Email API Error:", err);

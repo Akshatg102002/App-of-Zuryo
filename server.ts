@@ -8,10 +8,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // Initialize Firebase Admin
-if (!admin.apps.length) {
-    admin.initializeApp({
-        projectId: "zuryo-2f32a",
-    });
+try {
+    if (!admin.apps.length) {
+        admin.initializeApp({
+            projectId: "zuryo-2f32a",
+        });
+        console.log('Firebase Admin initialized');
+    }
+} catch (err) {
+    console.error('Firebase Admin initialization error:', err);
 }
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_cJkig2tP_BSzBcoJ5ZNAw6dLjpRqaYc3k');
@@ -25,6 +30,7 @@ async function startServer() {
 
     // API Routes
     app.post('/api/send-otp', async (req, res) => {
+        console.log('POST /api/send-otp', req.body);
         const { email, otp } = req.body;
 
         if (!email || !otp) {
@@ -34,18 +40,22 @@ async function startServer() {
         try {
             // 1. Cross-check email existence in Firebase Auth
             try {
+                console.log('Checking email existence:', email);
                 await admin.auth().getUserByEmail(email);
                 // If this succeeds, the user exists
+                console.log('User already exists:', email);
                 return res.status(409).json({ error: 'Email already registered. Please login instead.' });
             } catch (authError: any) {
                 // If error code is 'auth/user-not-found', it's safe to proceed with signup
-                if (authError.code !== 'auth/user-not-found') {
-                    console.error('Firebase Auth Error:', authError);
-                    throw authError;
+                if (authError.code === 'auth/user-not-found') {
+                    console.log('User not found, proceeding with OTP:', email);
+                } else {
+                    console.error('Firebase Auth Error:', authError.code, authError.message);
                 }
             }
 
             // 2. Send OTP via Resend
+            console.log('Sending OTP via Resend to:', email);
             const { data, error } = await resend.emails.send({
                 from: process.env.RESEND_FROM || 'Zuryo <noreply@zuryo.co>',
                 to: [email],
@@ -67,9 +77,10 @@ async function startServer() {
 
             if (error) {
                 console.error('Resend Error:', error);
-                return res.status(500).json({ error: 'Failed to send verification email' });
+                return res.status(500).json({ error: 'Failed to send verification email: ' + (error.message || 'Unknown error') });
             }
 
+            console.log('OTP sent successfully to:', email, data);
             res.json({ success: true, message: 'OTP sent successfully' });
         } catch (error: any) {
             console.error('Server Error:', error);
