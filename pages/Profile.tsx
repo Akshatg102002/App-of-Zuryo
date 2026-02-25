@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { MapPin, LogOut, ChevronRight, FileText, Info, Phone, Edit2, Save, UserCircle, ShieldCheck, Calendar, Lock, Loader2, X, Ruler, Weight, Activity, Mail, Package, CheckCircle, Headphones, ClipboardList, Clock } from 'lucide-react';
+import { MapPin, LogOut, ChevronRight, FileText, Info, Phone, Edit2, Save, UserCircle, ShieldCheck, Calendar, Lock, Loader2, X, Ruler, Weight, Activity, Mail, Package, CheckCircle, Headphones, ClipboardList, Clock, Sparkles } from 'lucide-react';
 import { Booking, UserProfile } from '../types';
 import { getBookings, saveUserProfile } from '../services/db';
 import { useNavigate } from 'react-router-dom';
@@ -93,16 +93,12 @@ export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLo
         {/* Profile Header */}
         <div className="flex flex-col items-center mb-8 animate-in slide-in-from-top-4 duration-500">
             <div className="relative mb-4 group cursor-pointer">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                    <img 
-                        src={DEFAULT_AVATAR + (userProfile?.name || 'User')} 
-                        className="w-full h-full object-cover" 
-                        alt="Profile" 
-                    />
+                <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-xl bg-secondary flex items-center justify-center text-primary font-black text-3xl">
+                    {userProfile?.name ? userProfile.name.charAt(0).toUpperCase() : 'U'}
                 </div>
             </div>
-            <h1 className="text-2xl font-extrabold text-secondary">{userProfile?.name || 'User'}</h1>
-            <p className="text-sm text-gray-500 font-medium">{userProfile?.phoneNumber || userProfile?.email}</p>
+            <h1 className="text-2xl font-extrabold text-secondary">@{userProfile?.name?.toLowerCase().replace(/\s+/g, '_') || 'user'}</h1>
+            <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mt-1">{userProfile?.name || 'Zuryo Member'}</p>
         </div>
 
         {/* Stats Grid */}
@@ -124,23 +120,60 @@ export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLo
             </div>
         </div>
 
-        {/* Active Package Card (If exists) - Simplified view */}
+        {/* Active Package Card (If exists) */}
         {userProfile?.activePackage?.isActive && (
             <div className="mb-8 animate-in slide-in-from-bottom-4 duration-300">
-                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">Current Membership</h3>
-                <div className="bg-white p-6 rounded-[32px] border border-gray-100 shadow-soft relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-2 h-full bg-primary"></div>
-                    <div className="flex justify-between items-start mb-4">
+                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">Active Package</h3>
+                <div className="bg-[#142B5D] p-6 rounded-[32px] border border-white/10 shadow-2xl relative overflow-hidden text-white">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                    <div className="flex justify-between items-start mb-4 relative z-10">
                         <div>
-                            <span className="bg-primary/10 text-primary px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest">Active</span>
-                            <h3 className="text-xl font-black text-secondary mt-2">{userProfile.activePackage.name}</h3>
-                            <p className="text-xs text-gray-500 font-medium">Valid until {new Date(userProfile.activePackage.expiryDate).toLocaleDateString()}</p>
+                            <div className="flex items-center gap-2">
+                                <Sparkles size={16} className="text-primary" />
+                                <span className="text-primary text-[10px] font-black uppercase tracking-widest">Premium Member</span>
+                            </div>
+                            <h3 className="text-2xl font-black mt-2">{userProfile.activePackage.name}</h3>
+                            <p className="text-xs text-white/60 font-medium mt-1">Valid until {new Date(userProfile.activePackage.expiryDate).toLocaleDateString()}</p>
                         </div>
-                        <div className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-secondary">
-                             <Package size={24} />
+                        <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-primary backdrop-blur-md border border-white/10">
+                             <Package size={28} />
                         </div>
                     </div>
+                    <div className="mt-6 pt-6 border-t border-white/10 flex justify-between items-center relative z-10">
+                        <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Status</div>
+                        <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-green-500/20">Active</div>
+                    </div>
                 </div>
+            </div>
+        )}
+
+        {/* Upcoming Booking Card */}
+        {bookings.filter(b => b.status === 'confirmed').length > 0 && (
+            <div className="mb-8 animate-in slide-in-from-bottom-4 duration-300">
+                <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 px-2">Upcoming Session</h3>
+                {bookings.filter(b => b.status === 'confirmed').slice(0, 1).map(booking => (
+                    <div key={booking.id} className="bg-white p-6 rounded-[32px] border-2 border-primary/20 shadow-xl shadow-primary/5 flex flex-col gap-4 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-4">
+                            <div className="bg-primary/10 text-primary p-2 rounded-xl">
+                                <Calendar size={20} />
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">{booking.category}</p>
+                            <h4 className="text-xl font-black text-secondary">{new Date(booking.date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</h4>
+                            <p className="text-sm font-bold text-gray-500 mt-1 flex items-center gap-1"><Clock size={14}/> {booking.time}</p>
+                        </div>
+                        <div className="flex items-center gap-3 pt-4 border-t border-gray-50">
+                            <div className="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400">
+                                <MapPin size={18} />
+                            </div>
+                            <div className="flex-1">
+                                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Location</p>
+                                <p className="text-xs font-bold text-secondary line-clamp-1">{booking.location}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         )}
 
@@ -202,15 +235,41 @@ export const Profile: React.FC<ProfileProps> = ({ currentUser, userProfile, onLo
                 />
             )}
 
-            {!userProfile?.activePackage?.isActive && (
-                <MenuItem 
-                    icon={<Calendar size={20} />} 
-                    label="Booking History" 
-                    subLabel="View past and upcoming sessions"
-                    onClick={() => navigate('/bookings')} 
-                    badge={bookings.filter(b => b.status === 'confirmed').length > 0 ? `${bookings.filter(b => b.status === 'confirmed').length}` : undefined}
-                />
-            )}
+            <MenuItem 
+                icon={<Calendar size={20} />} 
+                label="Booking History" 
+                subLabel="View past and upcoming sessions"
+                onClick={() => navigate('/bookings')} 
+                badge={bookings.filter(b => b.status === 'confirmed').length > 0 ? `${bookings.filter(b => b.status === 'confirmed').length}` : undefined}
+            />
+            
+            <MenuItem 
+                icon={<X size={20} className="text-red-500" />} 
+                label="Account Deletion" 
+                subLabel="Request to delete your data"
+                onClick={async () => {
+                    if (window.confirm("Are you sure you want to request account deletion? This action is irreversible.")) {
+                        try {
+                            const response = await fetch('/api/request-deletion', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    email: userProfile?.email,
+                                    name: userProfile?.name,
+                                    uid: userProfile?.uid
+                                }),
+                            });
+                            if (response.ok) {
+                                showToast("Deletion request sent successfully", "success");
+                            } else {
+                                throw new Error();
+                            }
+                        } catch (e) {
+                            showToast("Failed to send request", "error");
+                        }
+                    }
+                }} 
+            />
         </div>
 
         {/* Support & Legal */}
@@ -296,8 +355,13 @@ const PersonalDetailsModal: React.FC<{
 
                 <div className="space-y-4">
                     <div>
-                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide ml-1">Full Name (Locked)</label>
-                        <input type="text" value={profile.name || ''} disabled className="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 font-bold text-gray-400 cursor-not-allowed mt-1" />
+                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wide ml-1">Username / Full Name</label>
+                        <input 
+                            type="text" 
+                            value={formData.name || ''} 
+                            onChange={e => setFormData({...formData, name: e.target.value})}
+                            className="w-full p-3 bg-white rounded-xl border border-gray-200 font-bold text-secondary mt-1" 
+                        />
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">

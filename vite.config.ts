@@ -51,16 +51,6 @@ export default defineConfig({
             }
           }
         ],
-        // note_taking is not standard in Web App Manifest yet, but user requested it. 
-        // We can include it, but it might be ignored by some parsers or cause type errors if types are strict.
-        // However, since this is a JS object passed to VitePWA, it should be fine as long as it's valid JSON.
-        // Note: 'note_taking' is part of the "Note Taking" web app manifest extension proposal.
-        // To be safe and avoid type errors if the types don't support it, I will cast it or just include it if it's just a JSON object.
-        // But since this is inside defineConfig which is typed, I might need to be careful.
-        // Let's assume VitePWA manifest type allows extra properties or is loose enough.
-        // Actually, let's omit non-standard fields if they cause issues, but the user explicitly asked for this JSON.
-        // I'll include it.
-        
         widgets: [
            {
               name: "Zuryo Quick Book",
@@ -130,7 +120,7 @@ export default defineConfig({
             ]
           }
         ]
-      },
+      } as any,
       workbox: {
         // Import custom logic for Push, Notification Click, Periodic Sync
         importScripts: ['/sw-custom.js'],

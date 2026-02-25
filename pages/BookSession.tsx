@@ -273,6 +273,26 @@ export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfi
 
         await addBooking(newBooking);
         await submitBookingToSheet(newBooking, userProfile);
+
+        // Notify via Resend
+        try {
+            await fetch('/api/notify-booking', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email,
+                    name: formData.name,
+                    bookingDetails: {
+                        category: newBooking.category,
+                        date: new Date(newBooking.date).toLocaleDateString(),
+                        time: newBooking.time,
+                        location: newBooking.location
+                    }
+                }),
+            });
+        } catch (e) {
+            console.error("Failed to send booking notification", e);
+        }
         
         showToast("Booking Confirmed!", "success");
         setIsProcessing(false);
@@ -411,7 +431,7 @@ export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfi
                                     placeholder="Enter your Area (e.g. HSR Layout)" 
                                     value={formData.address} 
                                     onChange={e=>setFormData(prev => ({ ...prev, address: e.target.value }))} 
-                                    className="input-field bg-white min-h-[60px] resize-none" 
+                                    className="input-field bg-[#142B5D] text-white border-2 border-[#FFB435] placeholder:text-white/40 min-h-[60px] resize-none shadow-lg shadow-[#FFB435]/10" 
                                 />
                                 <div className="text-[10px] text-gray-500 mt-4 bg-blue-50 p-3 rounded-xl border border-blue-100">
                                     <p className="mb-1 font-medium">We are Currently Serving in</p>

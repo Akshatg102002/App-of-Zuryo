@@ -78,6 +78,17 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
                     age: '', gender: '', weight: '', height: '', goal: '', activityLevel: '', injuries: '',
                     createdAt: new Date().toISOString()
                 });
+
+                // Notify Welcome via Resend
+                try {
+                    await fetch('/api/notify-signup', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: email.trim(), name: name }),
+                    });
+                } catch (e) {
+                    console.error("Failed to send welcome email", e);
+                }
             }
             onLoginSuccess();
         } catch (err: any) {
@@ -113,8 +124,13 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
         }
         try {
             setLoading(true);
-            await auth.sendPasswordResetEmail(email.trim());
-            setSuccessMsg('Password reset link sent!');
+            const response = await fetch('/api/send-reset-link', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email.trim() }),
+            });
+            if (!response.ok) throw new Error("Failed to send reset link");
+            setSuccessMsg('Professional reset link sent to your email!');
             setError('');
         } catch (err: any) {
             setError(err.message);
