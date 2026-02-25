@@ -5,28 +5,25 @@ import admin from 'firebase-admin';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { firebaseConfig } from './services/firebase';
+import fs from 'fs';
+import path from 'path';
 
 dotenv.config();
 
-// Initialize Firebase Admin (Minimal - only for Firestore if needed, but Auth requires credentials)
+// Initialize Firebase Admin
 try {
     if (!admin.apps.length) {
-        const serviceAccountVar = process.env.FIREBASE_SERVICE_ACCOUNT;
+        const serviceAccountPath = path.resolve('./serviceAccountKey.json');
         
-        if (serviceAccountVar) {
-            try {
-                const serviceAccount = JSON.parse(serviceAccountVar);
-                admin.initializeApp({
-                    credential: admin.credential.cert(serviceAccount),
-                    projectId: firebaseConfig.projectId,
-                });
-                console.log('Firebase Admin: Initialized with Service Account');
-            } catch (e) {
-                console.error('Firebase Admin: Failed to parse FIREBASE_SERVICE_ACCOUNT JSON');
-                admin.initializeApp({ projectId: firebaseConfig.projectId });
-            }
+        if (fs.existsSync(serviceAccountPath)) {
+            const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount),
+                projectId: firebaseConfig.projectId,
+            });
+            console.log('Firebase Admin: Initialized with serviceAccountKey.json');
         } else {
-            // Initialize without credentials - some features like generatePasswordResetLink will NOT work
+            // Fallback to minimal initialization if file is missing
             admin.initializeApp({ projectId: firebaseConfig.projectId });
             console.log('Firebase Admin: Initialized without Service Account (Limited functionality)');
         }
@@ -109,52 +106,31 @@ async function startServer() {
         if (!email) return res.status(400).json({ error: 'Email is required' });
 
         try {
-            // If we have a service account, we can use the professional template with Resend
-            if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-                const link = await admin.auth().generatePasswordResetLink(email);
-                const { error } = await resend.emails.send({
-                    from: process.env.RESEND_FROM || 'Zuryo <noreply@zuryo.co>',
-                    to: [email],
-                    subject: 'Reset your password for Zuryo',
-                    html: `
-                        <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
-                            <div style="text-align: center; margin-bottom: 30px;">
-                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
-                                <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
-                            </div>
-                            <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">Reset Your Password</h2>
-                            <p style="font-size: 16px; line-height: 1.6; color: #333;">Hello,</p>
-                            <p style="font-size: 16px; line-height: 1.6; color: #555;">We received a request to reset your Zuryo account password. Click the button below to set a new one:</p>
-                            <div style="text-align: center; margin: 40px 0;">
-                                <a href="${link}" style="background: #FFB435; color: #142B5D; padding: 18px 36px; border-radius: 16px; text-decoration: none; font-weight: 900; font-size: 16px; display: inline-block; box-shadow: 0 10px 20px rgba(255, 180, 53, 0.2);">Reset Password</a>
-                            </div>
-                            <p style="font-size: 14px; color: #64748B; text-align: center;">If you didn't request this, you can safely ignore this email. The link will expire shortly.</p>
-                            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
-                                <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
-                            </div>
+            const link = await admin.auth().generatePasswordResetLink(email);
+            const { error } = await resend.emails.send({
+                from: process.env.RESEND_FROM || 'Zuryo <noreply@zuryo.co>',
+                to: [email],
+                subject: 'Reset your password for Zuryo',
+                html: `
+                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
+                            <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
                         </div>
-                    `,
-                });
-                if (error) throw error;
-            } else {
-                // Fallback: Use Firebase REST API to send the standard reset email
-                // This doesn't require a service account, only the API Key from firebase.ts
-                const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${firebaseConfig.apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        requestType: 'PASSWORD_RESET',
-                        email: email
-                    })
-                });
-                
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error?.message || 'Failed to send reset email via REST API');
-                }
-                console.log('Reset email sent via Firebase REST API (Standard Template)');
-            }
-            
+                        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">Reset Your Password</h2>
+                        <p style="font-size: 16px; line-height: 1.6; color: #333;">Hello,</p>
+                        <p style="font-size: 16px; line-height: 1.6; color: #555;">We received a request to reset your Zuryo account password. Click the button below to set a new one:</p>
+                        <div style="text-align: center; margin: 40px 0;">
+                            <a href="${link}" style="background: #FFB435; color: #142B5D; padding: 18px 36px; border-radius: 16px; text-decoration: none; font-weight: 900; font-size: 16px; display: inline-block; box-shadow: 0 10px 20px rgba(255, 180, 53, 0.2);">Reset Password</a>
+                        </div>
+                        <p style="font-size: 14px; color: #64748B; text-align: center;">If you didn't request this, you can safely ignore this email. The link will expire shortly.</p>
+                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
+                            <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
+                        </div>
+                    </div>
+                `,
+            });
+            if (error) throw error;
             res.json({ success: true });
         } catch (error: any) {
             console.error('Reset Link Error:', error);
