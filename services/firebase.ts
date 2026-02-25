@@ -3,7 +3,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBrjDlJeHPo66cf8EpM0YQjXSsjmighNXU",
   authDomain: "zuryo-2f32a.firebaseapp.com",
   projectId: "zuryo-2f32a",
