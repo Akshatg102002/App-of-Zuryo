@@ -22,6 +22,18 @@ try {
                 projectId: firebaseConfig.projectId,
             });
             console.log('Firebase Admin: Initialized with serviceAccountKey.json');
+        } else if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+            try {
+                const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+                admin.initializeApp({
+                    credential: admin.credential.cert(serviceAccount),
+                    projectId: firebaseConfig.projectId,
+                });
+                console.log('Firebase Admin: Initialized with FIREBASE_SERVICE_ACCOUNT env var');
+            } catch (parseErr) {
+                console.error('Failed to parse FIREBASE_SERVICE_ACCOUNT env var:', parseErr);
+                admin.initializeApp({ projectId: firebaseConfig.projectId });
+            }
         } else {
             // Fallback to minimal initialization if file is missing
             admin.initializeApp({ projectId: firebaseConfig.projectId });
@@ -142,19 +154,33 @@ async function startServer() {
         try {
             // Generate the reset link using Firebase Admin
             // Pointing to our custom reset page in the app
-            const appUrl = process.env.APP_URL || 'https://ais-dev-qp3wafpsq33qqpe32kf2dq-45571142071.asia-southeast1.run.app';
+            const appUrl = process.env.APP_URL || req.headers.origin || 'https://ais-dev-qp3wafpsq33qqpe32kf2dq-45571142071.asia-southeast1.run.app';
             const actionCodeSettings = {
                 url: `${appUrl}/reset-password`,
                 handleCodeInApp: true,
             };
-            const link = await admin.auth().generatePasswordResetLink(email, actionCodeSettings);
+            
+            let link;
+            try {
+                link = await admin.auth().generatePasswordResetLink(email, actionCodeSettings);
+            } catch (adminError: any) {
+                console.error('Firebase Admin Reset Link Error:', adminError);
+                // If admin SDK fails (likely due to missing service account or user not found),
+                // we return a 500 but with a specific message that the frontend can use to fallback
+                return res.status(500).json({ 
+                    error: 'Admin SDK failed to generate link', 
+                    code: adminError.code,
+                    message: adminError.message 
+                });
+            }
             
             // Send a high-end designer HTML template via Resend
-            const { error } = await resend.emails.send({
-                from: process.env.RESEND_FROM || 'Zuryo <onboarding@resend.dev>',
-                to: [email],
-                subject: 'Reset Your Zuryo Password',
-                html: `
+            try {
+                const { error } = await resend.emails.send({
+                    from: process.env.RESEND_FROM || 'Zuryo <onboarding@resend.dev>',
+                    to: [email],
+                    subject: 'Reset Your Zuryo Password',
+                    html: `
                     <!DOCTYPE html>
                     <html>
                     <head>
@@ -228,11 +254,15 @@ async function startServer() {
 
             console.log('Designer reset email sent via Resend');
             res.json({ success: true });
-        } catch (error: any) {
-            console.error('Reset Link Error:', error);
-            res.status(500).json({ error: error.message || 'Failed to send reset link' });
+        } catch (resendError: any) {
+            console.error('Resend Reset Email Error:', resendError);
+            res.status(500).json({ error: 'Failed to send reset email via Resend', message: resendError.message });
         }
-    });
+    } catch (outerError: any) {
+        console.error('Reset Link Outer Error:', outerError);
+        res.status(500).json({ error: outerError.message || 'Internal server error' });
+    }
+});
 
     app.post('/api/notify-booking', async (req, res) => {
         const { email, name, bookingDetails } = req.body;
