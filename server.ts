@@ -71,21 +71,55 @@ async function startServer() {
                 to: [email],
                 subject: 'Your Zuryo Verification Code',
                 html: `
-                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
-                            <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
-                        </div>
-                        <p style="font-size: 18px; line-height: 1.6; color: #333;">Hello,</p>
-                        <p style="font-size: 16px; line-height: 1.6; color: #555;">To complete your verification, please use the following code:</p>
-                        <div style="background: #F8FAFC; padding: 30px; text-align: center; border-radius: 20px; margin: 30px 0; border: 1px solid #E2E8F0;">
-                            <span style="font-size: 42px; font-weight: 900; letter-spacing: 8px; color: #142B5D;">${otp}</span>
-                        </div>
-                        <p style="font-size: 14px; color: #64748B; text-align: center;">This code will expire in 10 minutes. If you didn't request this, please ignore this email.</p>
-                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
-                            <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
-                        </div>
-                    </div>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Verification Code</title>
+                    </head>
+                    <body style="margin: 0; padding: 0; background-color: #F8FAFC; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; padding: 40px 20px;">
+                            <tr>
+                                <td align="center">
+                                    <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 43, 93, 0.05); border: 1px solid #F1F5F9;">
+                                        <!-- Header -->
+                                        <tr>
+                                            <td align="center" style="background: #142B5D; padding: 40px;">
+                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 60px; height: 60px; border-radius: 18px;" />
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Content -->
+                                        <tr>
+                                            <td style="padding: 50px 40px; text-align: center;">
+                                                <h2 style="color: #142B5D; font-size: 24px; font-weight: 800; margin: 0 0 10px 0;">Verify Your Account</h2>
+                                                <p style="color: #64748B; font-size: 16px; margin: 0 0 40px 0;">Use the code below to complete your verification.</p>
+                                                
+                                                <div style="background-color: #F8FAFC; border-radius: 24px; padding: 40px; border: 2px solid #F1F5F9; display: inline-block; min-width: 200px;">
+                                                    <span style="font-size: 48px; font-weight: 900; letter-spacing: 12px; color: #142B5D; font-family: 'Courier New', monospace;">${otp}</span>
+                                                </div>
+                                                
+                                                <p style="color: #94A3B8; font-size: 13px; margin-top: 40px;">
+                                                    This code expires in 10 minutes. If you didn't request this, please ignore this email.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="padding: 0 40px 40px 40px; text-align: center;">
+                                                <p style="color: #CBD5E1; font-size: 11px; margin: 0; border-top: 1px solid #F1F5F9; padding-top: 20px;">
+                                                    &copy; 2026 Zuryo Technologies Pvt Ltd.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
                 `,
             });
 
@@ -107,36 +141,92 @@ async function startServer() {
 
         try {
             // Generate the reset link using Firebase Admin
-            const link = await admin.auth().generatePasswordResetLink(email);
+            // Pointing to our custom reset page in the app
+            const appUrl = process.env.APP_URL || 'https://ais-dev-qp3wafpsq33qqpe32kf2dq-45571142071.asia-southeast1.run.app';
+            const actionCodeSettings = {
+                url: `${appUrl}/reset-password`,
+                handleCodeInApp: true,
+            };
+            const link = await admin.auth().generatePasswordResetLink(email, actionCodeSettings);
             
-            // Send the professional HTML template via Resend
+            // Send a high-end designer HTML template via Resend
             const { error } = await resend.emails.send({
                 from: process.env.RESEND_FROM || 'Zuryo <onboarding@resend.dev>',
                 to: [email],
-                subject: 'Reset your password for Zuryo',
+                subject: 'Reset Your Zuryo Password',
                 html: `
-                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
-                            <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
-                        </div>
-                        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">Reset Your Password</h2>
-                        <p style="font-size: 16px; line-height: 1.6; color: #333;">Hello,</p>
-                        <p style="font-size: 16px; line-height: 1.6; color: #555;">We received a request to reset your Zuryo account password. Click the button below to set a new one:</p>
-                        <div style="text-align: center; margin: 40px 0;">
-                            <a href="${link}" style="background: #FFB435; color: #142B5D; padding: 18px 36px; border-radius: 16px; text-decoration: none; font-weight: 900; font-size: 16px; display: inline-block; box-shadow: 0 10px 20px rgba(255, 180, 53, 0.2);">Reset Password</a>
-                        </div>
-                        <p style="font-size: 14px; color: #64748B; text-align: center;">If you didn't request this, you can safely ignore this email. The link will expire shortly.</p>
-                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
-                            <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
-                        </div>
-                    </div>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Reset Your Password</title>
+                    </head>
+                    <body style="margin: 0; padding: 0; background-color: #F8FAFC; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; padding: 40px 20px;">
+                            <tr>
+                                <td align="center">
+                                    <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 43, 93, 0.05); border: 1px solid #F1F5F9;">
+                                        <!-- Header with Gradient -->
+                                        <tr>
+                                            <td align="center" style="background: linear-gradient(135deg, #142B5D 0%, #1E3A8A 100%); padding: 60px 40px;">
+                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-bottom: 24px;" />
+                                                <h1 style="color: #FFB435; font-size: 28px; font-weight: 900; margin: 0; letter-spacing: 2px; text-transform: uppercase;">ZURYO</h1>
+                                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; font-weight: 700; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase;">On-Demand Fitness</p>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Content -->
+                                        <tr>
+                                            <td style="padding: 50px 40px;">
+                                                <h2 style="color: #142B5D; font-size: 24px; font-weight: 800; margin: 0 0 20px 0; letter-spacing: -0.5px;">Password Reset Request</h2>
+                                                <p style="color: #64748B; font-size: 16px; line-height: 1.7; margin: 0 0 30px 0;">
+                                                    Hello there,<br><br>
+                                                    We received a request to reset the password for your Zuryo account. If you didn't make this request, you can safely ignore this email.
+                                                </p>
+                                                
+                                                <!-- CTA Button -->
+                                                <table border="0" cellspacing="0" cellpadding="0" style="margin: 40px 0;">
+                                                    <tr>
+                                                        <td align="center" bgcolor="#FFB435" style="border-radius: 20px;">
+                                                            <a href="${link}" target="_blank" style="display: inline-block; padding: 20px 40px; font-size: 16px; font-weight: 900; color: #142B5D; text-decoration: none; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Reset My Password</a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                                <div style="background-color: #F8FAFC; border-radius: 20px; padding: 24px; border: 1px dashed #E2E8F0;">
+                                                    <p style="color: #94A3B8; font-size: 13px; line-height: 1.6; margin: 0;">
+                                                        <strong>Security Note:</strong> This link will expire in 1 hour for your protection. You can only use this link once.
+                                                    </p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="padding: 0 40px 40px 40px;">
+                                                <div style="border-top: 1px solid #F1F5F9; padding-top: 30px; text-align: center;">
+                                                    <p style="color: #94A3B8; font-size: 12px; margin: 0 0 10px 0;">&copy; 2026 Zuryo Technologies Pvt Ltd.</p>
+                                                    <div style="display: flex; justify-content: center; gap: 15px;">
+                                                        <a href="https://zuryo.co" style="color: #142B5D; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase;">Website</a>
+                                                        <span style="color: #E2E8F0;">&bull;</span>
+                                                        <a href="https://zuryo.co/support" style="color: #142B5D; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase;">Support</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
                 `,
             });
 
             if (error) throw error;
 
-            console.log('Professional reset email sent via Resend');
+            console.log('Designer reset email sent via Resend');
             res.json({ success: true });
         } catch (error: any) {
             console.error('Reset Link Error:', error);
@@ -152,25 +242,75 @@ async function startServer() {
                 to: [email],
                 subject: 'Booking Confirmed - Zuryo',
                 html: `
-                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
-                            <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
-                        </div>
-                        <h2 style="font-size: 22px; font-weight: 800; color: #10B981; margin-bottom: 20px;">Booking Confirmed!</h2>
-                        <p style="font-size: 16px; line-height: 1.6; color: #333;">Hi ${name},</p>
-                        <p style="font-size: 16px; line-height: 1.6; color: #555;">Your fitness session has been successfully booked. Our trainer will reach your location as per the schedule.</p>
-                        <div style="background: #F8FAFC; padding: 25px; border-radius: 20px; margin: 30px 0; border: 1px solid #E2E8F0;">
-                            <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold; color: #64748B; text-transform: uppercase;">Session Details</p>
-                            <p style="margin: 0; font-size: 18px; font-weight: 900; color: #142B5D;">${bookingDetails.category}</p>
-                            <p style="margin: 5px 0 0 0; font-size: 14px; color: #555;">${bookingDetails.date} at ${bookingDetails.time}</p>
-                            <p style="margin: 15px 0 0 0; font-size: 14px; color: #555;"><strong>Location:</strong> ${bookingDetails.location}</p>
-                        </div>
-                        <p style="font-size: 14px; color: #64748B;">You can view or manage your booking in the Zuryo app.</p>
-                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
-                            <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
-                        </div>
-                    </div>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Booking Confirmed</title>
+                    </head>
+                    <body style="margin: 0; padding: 0; background-color: #F8FAFC; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; padding: 40px 20px;">
+                            <tr>
+                                <td align="center">
+                                    <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 43, 93, 0.05); border: 1px solid #F1F5F9;">
+                                        <!-- Header -->
+                                        <tr>
+                                            <td align="center" style="background: #10B981; padding: 40px;">
+                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 60px; height: 60px; border-radius: 18px;" />
+                                                <h1 style="color: #ffffff; font-size: 20px; font-weight: 800; margin: 15px 0 0 0; text-transform: uppercase; letter-spacing: 1px;">Booking Confirmed</h1>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Content -->
+                                        <tr>
+                                            <td style="padding: 40px;">
+                                                <p style="color: #142B5D; font-size: 18px; font-weight: 700; margin: 0 0 10px 0;">Hi ${name},</p>
+                                                <p style="color: #64748B; font-size: 15px; line-height: 1.6; margin: 0 0 30px 0;">Your fitness session is locked in! Get ready to sweat. Our trainer will meet you at the scheduled time.</p>
+                                                
+                                                <div style="background-color: #F8FAFC; border-radius: 24px; padding: 30px; border: 1px solid #F1F5F9;">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td style="padding-bottom: 20px;">
+                                                                <p style="color: #94A3B8; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0;">Session Type</p>
+                                                                <p style="color: #142B5D; font-size: 18px; font-weight: 900; margin: 0;">${bookingDetails.category}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding-bottom: 20px;">
+                                                                <p style="color: #94A3B8; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0;">Date & Time</p>
+                                                                <p style="color: #142B5D; font-size: 16px; font-weight: 700; margin: 0;">${bookingDetails.date} at ${bookingDetails.time}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <p style="color: #94A3B8; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 5px 0;">Location</p>
+                                                                <p style="color: #142B5D; font-size: 14px; font-weight: 600; margin: 0; line-height: 1.5;">${bookingDetails.location}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                
+                                                <div style="margin-top: 40px; text-align: center;">
+                                                    <a href="https://zuryo.co/bookings" style="display: inline-block; background: #142B5D; color: #FFB435; padding: 16px 32px; border-radius: 16px; text-decoration: none; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">View Booking Details</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="padding: 0 40px 40px 40px; text-align: center;">
+                                                <p style="color: #CBD5E1; font-size: 11px; margin: 0; border-top: 1px solid #F1F5F9; padding-top: 20px;">
+                                                    &copy; 2026 Zuryo Technologies Pvt Ltd.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
                 `,
             });
             if (error) throw error;
@@ -188,21 +328,52 @@ async function startServer() {
                 to: [email],
                 subject: 'Welcome to Zuryo!',
                 html: `
-                    <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; padding: 40px; border: 1px solid #f0f0f0; border-radius: 24px; color: #142B5D;">
-                        <div style="text-align: center; margin-bottom: 30px;">
-                            <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 20px; object-fit: cover;" />
-                            <h1 style="margin-top: 15px; font-size: 24px; font-weight: 900; letter-spacing: -0.5px; color: #142B5D;">ZURYO</h1>
-                        </div>
-                        <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 20px;">Welcome to the Tribe, ${name}!</h2>
-                        <p style="font-size: 16px; line-height: 1.6; color: #333;">We're thrilled to have you with us. Zuryo is here to make fitness accessible, on-demand, and right at your doorstep.</p>
-                        <p style="font-size: 16px; line-height: 1.6; color: #555;">Start your journey by booking your first session today!</p>
-                        <div style="text-align: center; margin: 40px 0;">
-                            <a href="https://zuryo.co" style="background: #142B5D; color: #FFB435; padding: 18px 36px; border-radius: 16px; text-decoration: none; font-weight: 900; font-size: 16px; display: inline-block;">Book a Session</a>
-                        </div>
-                        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #f0f0f0; text-align: center;">
-                            <p style="font-size: 12px; color: #94A3B8;">&copy; 2026 Zuryo Technologies Pvt Ltd. All rights reserved.</p>
-                        </div>
-                    </div>
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Welcome to Zuryo</title>
+                    </head>
+                    <body style="margin: 0; padding: 0; background-color: #F8FAFC; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; padding: 40px 20px;">
+                            <tr>
+                                <td align="center">
+                                    <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 43, 93, 0.05); border: 1px solid #F1F5F9;">
+                                        <!-- Header -->
+                                        <tr>
+                                            <td align="center" style="background: #142B5D; padding: 60px 40px;">
+                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 24px;" />
+                                                <h1 style="color: #FFB435; font-size: 28px; font-weight: 900; margin: 20px 0 0 0; letter-spacing: 2px;">WELCOME</h1>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Content -->
+                                        <tr>
+                                            <td style="padding: 50px 40px; text-align: center;">
+                                                <h2 style="color: #142B5D; font-size: 24px; font-weight: 800; margin: 0 0 20px 0;">Hi ${name}, Welcome to the Tribe!</h2>
+                                                <p style="color: #64748B; font-size: 16px; line-height: 1.7; margin: 0 0 40px 0;">
+                                                    We're thrilled to have you with us. Zuryo is here to make fitness accessible, on-demand, and right at your doorstep.
+                                                </p>
+                                                
+                                                <a href="https://zuryo.co" style="display: inline-block; background: #142B5D; color: #FFB435; padding: 20px 40px; border-radius: 20px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(20, 43, 93, 0.2);">Start Your Journey</a>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- Footer -->
+                                        <tr>
+                                            <td style="padding: 0 40px 40px 40px; text-align: center;">
+                                                <p style="color: #CBD5E1; font-size: 11px; margin: 0; border-top: 1px solid #F1F5F9; padding-top: 20px;">
+                                                    &copy; 2026 Zuryo Technologies Pvt Ltd.
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
                 `,
             });
             if (error) throw error;
