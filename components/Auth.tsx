@@ -135,12 +135,12 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
             });
             
             if (response.ok) {
-                setSuccessMsg('Professional reset link sent to your email!');
+                setSuccessMsg('Password reset link sent on email');
             } else {
                 // Fallback to standard Firebase reset email if server fails
                 console.warn("Server-side reset failed, falling back to Firebase standard email");
                 await auth.sendPasswordResetEmail(email.trim());
-                setSuccessMsg('Reset link sent to your email via Firebase!');
+                setSuccessMsg('Password reset link sent on email');
             }
         } catch (err: any) {
             console.error("Password reset error:", err);

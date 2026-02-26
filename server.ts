@@ -187,58 +187,55 @@ async function startServer() {
                         <meta charset="utf-8">
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>Reset Your Password</title>
+                        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
                     </head>
-                    <body style="margin: 0; padding: 0; background-color: #F8FAFC; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #F8FAFC; padding: 40px 20px;">
+                    <body style="margin: 0; padding: 0; background-color: #ffffff; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; padding: 60px 20px;">
                             <tr>
                                 <td align="center">
-                                    <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 40px rgba(20, 43, 93, 0.05); border: 1px solid #F1F5F9;">
-                                        <!-- Header with Gradient -->
+                                    <table width="100%" max-width="500" border="0" cellspacing="0" cellpadding="0" style="max-width: 500px; background-color: #ffffff;">
+                                        <!-- Logo -->
                                         <tr>
-                                            <td align="center" style="background: linear-gradient(135deg, #142B5D 0%, #1E3A8A 100%); padding: 60px 40px;">
-                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 80px; height: 80px; border-radius: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); margin-bottom: 24px;" />
-                                                <h1 style="color: #FFB435; font-size: 28px; font-weight: 900; margin: 0; letter-spacing: 2px; text-transform: uppercase;">ZURYO</h1>
-                                                <p style="color: rgba(255, 255, 255, 0.6); font-size: 12px; font-weight: 700; margin-top: 8px; letter-spacing: 1px; text-transform: uppercase;">On-Demand Fitness</p>
+                                            <td align="left" style="padding-bottom: 40px;">
+                                                <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" style="width: 60px; height: 60px; border-radius: 16px;" />
                                             </td>
                                         </tr>
                                         
                                         <!-- Content -->
                                         <tr>
-                                            <td style="padding: 50px 40px;">
-                                                <h2 style="color: #142B5D; font-size: 24px; font-weight: 800; margin: 0 0 20px 0; letter-spacing: -0.5px;">Password Reset Request</h2>
-                                                <p style="color: #64748B; font-size: 16px; line-height: 1.7; margin: 0 0 30px 0;">
-                                                    Hello there,<br><br>
-                                                    We received a request to reset the password for your Zuryo account. If you didn't make this request, you can safely ignore this email.
+                                            <td style="padding-bottom: 30px;">
+                                                <h1 style="color: #142B5D; font-size: 32px; font-weight: 900; margin: 0; letter-spacing: -1px; line-height: 1.1;">Reset your password</h1>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-bottom: 40px;">
+                                                <p style="color: #64748B; font-size: 16px; line-height: 1.6; margin: 0;">
+                                                    We received a request to reset the password for your Zuryo account. Click the button below to choose a new one.
                                                 </p>
-                                                
-                                                <!-- CTA Button -->
-                                                <table border="0" cellspacing="0" cellpadding="0" style="margin: 40px 0;">
-                                                    <tr>
-                                                        <td align="center" bgcolor="#FFB435" style="border-radius: 20px;">
-                                                            <a href="${link}" target="_blank" style="display: inline-block; padding: 20px 40px; font-size: 16px; font-weight: 900; color: #142B5D; text-decoration: none; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Reset My Password</a>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                
-                                                <div style="background-color: #F8FAFC; border-radius: 20px; padding: 24px; border: 1px dashed #E2E8F0;">
-                                                    <p style="color: #94A3B8; font-size: 13px; line-height: 1.6; margin: 0;">
-                                                        <strong>Security Note:</strong> This link will expire in 1 hour for your protection. You can only use this link once.
-                                                    </p>
-                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        <!-- CTA Button -->
+                                        <tr>
+                                            <td style="padding-bottom: 40px;">
+                                                <a href="${link}" target="_blank" style="display: inline-block; background-color: #FFB435; color: #142B5D; padding: 18px 36px; font-size: 16px; font-weight: 800; text-decoration: none; border-radius: 14px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 12px rgba(255, 180, 53, 0.2);">Reset Password</a>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="padding-bottom: 40px; border-bottom: 1px solid #F1F5F9;">
+                                                <p style="color: #94A3B8; font-size: 14px; line-height: 1.6; margin: 0;">
+                                                    If you didn't request this, you can safely ignore this email. This link will expire in 60 minutes.
+                                                </p>
                                             </td>
                                         </tr>
                                         
                                         <!-- Footer -->
                                         <tr>
-                                            <td style="padding: 0 40px 40px 40px;">
-                                                <div style="border-top: 1px solid #F1F5F9; padding-top: 30px; text-align: center;">
-                                                    <p style="color: #94A3B8; font-size: 12px; margin: 0 0 10px 0;">&copy; 2026 Zuryo Technologies Pvt Ltd.</p>
-                                                    <div style="display: flex; justify-content: center; gap: 15px;">
-                                                        <a href="https://zuryo.co" style="color: #142B5D; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase;">Website</a>
-                                                        <span style="color: #E2E8F0;">&bull;</span>
-                                                        <a href="https://zuryo.co/support" style="color: #142B5D; font-size: 11px; font-weight: 700; text-decoration: none; text-transform: uppercase;">Support</a>
-                                                    </div>
-                                                </div>
+                                            <td style="padding-top: 40px;">
+                                                <p style="color: #142B5D; font-size: 12px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">ZURYO</p>
+                                                <p style="color: #94A3B8; font-size: 12px; margin: 0;">On-Demand Fitness at your doorstep.</p>
+                                                <p style="color: #CBD5E1; font-size: 11px; margin: 20px 0 0 0;">&copy; 2026 Zuryo Technologies Pvt Ltd.</p>
                                             </td>
                                         </tr>
                                     </table>
