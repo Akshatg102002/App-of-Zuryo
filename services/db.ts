@@ -35,24 +35,27 @@ export const getAllUsers = async (): Promise<UserProfile[]> => {
 };
 
 export const saveUserProfile = async (profile: UserProfile): Promise<void> => {
+  if (!profile.uid) throw new Error("User ID is required to save profile");
   try {
     await db.collection("users").doc(profile.uid).set(profile, { merge: true });
   } catch (e) {
     console.error("Error saving profile", e);
-    throw e;
+    throw new Error("Failed to save profile. Please check your connection.");
   }
 };
 
 export const deleteUser = async (uid: string): Promise<void> => {
+    if (!uid) return;
     try {
         await db.collection("users").doc(uid).delete();
     } catch (e) {
         console.error("Error deleting user", e);
-        throw e;
+        throw new Error("Failed to delete user account.");
     }
 };
 
 export const saveUserPackage = async (userId: string, pkg: UserPackage): Promise<void> => {
+  if (!userId) throw new Error("User ID is required");
   try {
     // We update the activePackage field on the user profile
     await db.collection("users").doc(userId).update({
@@ -60,7 +63,7 @@ export const saveUserPackage = async (userId: string, pkg: UserPackage): Promise
     });
   } catch (e) {
     console.error("Error saving package", e);
-    throw e;
+    throw new Error("Failed to save package details.");
   }
 };
 

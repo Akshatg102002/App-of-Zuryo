@@ -57,23 +57,33 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
     };
 
     const handleSignup = async () => {
+        if (loading) return;
         setLoading(true);
         setError('');
         try {
+            const cleanPhone = phone.trim();
+            const cleanEmail = email.trim().toLowerCase();
+            const cleanName = name.trim();
+
+            if (!cleanName) throw new Error("Name is required");
+            if (cleanPhone.length < 10) throw new Error("Valid 10-digit phone is required");
+            if (!cleanEmail.includes('@')) throw new Error("Valid email is required");
+            if (password.length < 6) throw new Error("Password must be at least 6 characters");
+
             // Check phone duplicate
-            const isDuplicate = await checkPhoneDuplicate(phone, ""); 
+            const isDuplicate = await checkPhoneDuplicate(cleanPhone, ""); 
             if (isDuplicate) {
                 throw new Error("This mobile number is already registered.");
             }
 
             // Create user directly (No OTP as requested)
-            const userCredential = await auth.createUserWithEmailAndPassword(email.trim(), password);
+            const userCredential = await auth.createUserWithEmailAndPassword(cleanEmail, password);
             if (userCredential.user) {
                 await saveUserProfile({
                     uid: userCredential.user.uid,
-                    email: email.trim(),
-                    name: name,
-                    phoneNumber: phone,
+                    email: cleanEmail,
+                    name: cleanName,
+                    phoneNumber: cleanPhone,
                     onboardingComplete: false,
                     age: '', gender: '', weight: '', height: '', goal: '', activityLevel: '', injuries: '',
                     createdAt: new Date().toISOString()
@@ -84,7 +94,7 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
                     await fetch('/api/notify-signup', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email: email.trim(), name: name }),
+                        body: JSON.stringify({ email: cleanEmail, name: cleanName }),
                     });
                 } catch (e) {
                     console.error("Failed to send welcome email", e);
@@ -92,10 +102,15 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
             }
             onLoginSuccess();
         } catch (err: any) {
+            console.error("Signup error:", err);
             if (err.code === 'auth/email-already-in-use') {
                 setError("This email is already registered. Please log in.");
+            } else if (err.code === 'auth/invalid-email') {
+                setError("The email address is badly formatted.");
+            } else if (err.code === 'auth/weak-password') {
+                setError("The password is too weak.");
             } else {
-                setError(err.message || "Signup failed");
+                setError(err.message || "Signup failed. Please try again.");
             }
         } finally {
             setLoading(false);
@@ -104,14 +119,25 @@ export const Auth: React.FC<AuthProps> = ({ onLoginSuccess, onTrainerLogin }) =>
 
     const handleLogin = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
+        if (loading) return;
         setError('');
         setLoading(true);
 
         try {
-            await auth.signInWithEmailAndPassword(email.trim(), password);
+            const cleanEmail = email.trim().toLowerCase();
+            if (!cleanEmail || !password) throw new Error("Email and password are required");
+
+            await auth.signInWithEmailAndPassword(cleanEmail, password);
             onLoginSuccess();
         } catch (err: any) {
-            setError('Invalid email or password.');
+            console.error("Login error:", err);
+            if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+                setError('Invalid email or password.');
+            } else if (err.code === 'auth/too-many-requests') {
+                setError('Too many failed attempts. Please try again later.');
+            } else {
+                setError(err.message || 'Login failed. Please try again.');
+            }
         } finally {
             setLoading(false);
         }

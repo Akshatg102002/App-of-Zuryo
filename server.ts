@@ -413,6 +413,15 @@ async function startServer() {
         }
     });
 
+    // Global Error Handler
+    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        console.error('Unhandled Server Error:', err);
+        res.status(500).json({ 
+            error: 'Internal Server Error',
+            message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong on our end.'
+        });
+    });
+
     // Vite middleware for development
     if (process.env.NODE_ENV !== 'production') {
         const vite = await createViteServer({

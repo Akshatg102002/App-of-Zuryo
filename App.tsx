@@ -27,18 +27,18 @@ const SplashScreen = () => (
     <div className="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center animate-out fade-out duration-500 delay-1000 fill-mode-forwards pointer-events-none">
         <div className="relative flex items-center justify-center">
             {/* Outer Ring */}
-            <div className="absolute w-40 h-40 border-2 border-primary/10 rounded-full"></div>
+            <div className="absolute w-32 h-32 border-2 border-primary/10 rounded-full"></div>
             
             {/* Spinning Rings */}
-            <div className="absolute w-28 h-28 border-4 border-primary/20 rounded-full"></div>
-            <div className="absolute w-28 h-28 border-t-4 border-primary rounded-full animate-[spin_0.8s_linear_infinite]"></div>
+            <div className="absolute w-24 h-24 border-4 border-primary/20 rounded-full"></div>
+            <div className="absolute w-24 h-24 border-t-4 border-primary rounded-full animate-[spin_0.8s_linear_infinite]"></div>
             
             {/* Logo Image */}
-            <div className="relative z-10 bg-white rounded-full p-4 shadow-sm">
+            <div className="relative z-10 bg-white rounded-full p-3 shadow-sm">
                 <img 
                     src="https://i.ibb.co/JRS0NMMj/ZUL.png" 
                     alt="Zuryo" 
-                    className="w-20 h-20 object-contain p-1"
+                    className="w-14 h-14 object-contain p-1"
                 />
             </div>
         </div>
@@ -76,10 +76,10 @@ const PageLoader = () => {
     if (!loading) return null;
 
     return (
-        <div className="fixed inset-0 z-[90] bg-white/90 backdrop-blur-md flex items-center justify-center animate-in fade-in duration-200">
-            <div className="bg-white p-6 rounded-3xl shadow-2xl flex flex-col items-center gap-4 border border-gray-100">
-                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-12 h-12 object-contain animate-pulse p-1" />
-                <Loader2 className="w-6 h-6 text-primary animate-spin" />
+        <div className="fixed inset-0 z-[40] bg-white/60 backdrop-blur-[2px] flex items-center justify-center animate-in fade-in duration-200 pointer-events-none">
+            <div className="bg-white/80 p-4 rounded-2xl shadow-xl flex flex-col items-center gap-3 border border-white/20 backdrop-blur-md">
+                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-8 h-8 object-contain animate-pulse p-1" />
+                <Loader2 className="w-4 h-4 text-primary animate-spin" />
             </div>
         </div>
     );
@@ -114,6 +114,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
              
              {/* Adjusted top padding for desktop. Added pb-24 for mobile to account for compact fixed nav. Added pt-safe for standalone mode. */}
              <main className="flex-1 w-full overflow-y-auto md:pt-28 pb-24 md:pb-0 pt-safe scroll-smooth relative overscroll-contain">
+                <PageLoader />
                 {children}
              </main>
 

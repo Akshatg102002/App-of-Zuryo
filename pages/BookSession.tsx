@@ -199,7 +199,7 @@ export const BookSession: React.FC<BookSessionProps> = ({ currentUser, userProfi
         }
 
         const options = {
-            key: "rzp_test_1DP5mmOlF5G5ag",
+            key: "rzp_live_S7AbbauY3Jqxga",
             amount: price * 100,
             currency: "INR",
             name: "Zuryo",
