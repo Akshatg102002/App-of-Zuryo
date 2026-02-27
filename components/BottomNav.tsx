@@ -66,11 +66,11 @@ export const TopNav: React.FC = () => {
     return (
         <div className="hidden md:flex items-center justify-between w-full h-24 bg-[#142B5D] fixed left-0 top-0 px-10 z-50 shadow-2xl rounded-b-[40px] border-b border-white/5 mx-auto max-w-[1920px]">
             <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navigate('/')}>
-                 <div className="w-12 h-12 bg-white/10 border border-white/10 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg overflow-hidden backdrop-blur-sm group-hover:scale-105 transition-transform">
-                    <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" className="w-full h-full object-cover" />
+                 <div className="w-14 h-14 bg-white border border-white/20 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(255,180,53,0.2)] overflow-hidden group-hover:scale-105 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(255,180,53,0.4)]">
+                    <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Zuryo" className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-2xl font-black text-white tracking-tight leading-none uppercase">ZURYO</span>
+                    <span className="text-2xl font-black text-white tracking-tight leading-none uppercase group-hover:text-primary transition-colors">ZURYO</span>
                     <span className="text-[10px] text-primary font-bold uppercase tracking-widest">On Demand Fitness</span>
                 </div>
             </div>

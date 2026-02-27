@@ -66,13 +66,13 @@ export default defineConfig({
         ],
         icons: [
           {
-            src: "https://i.ibb.co/JRS0NMMj/ZUL.png",
+            src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
             sizes: "192x192",
             type: "image/png",
             purpose: "any"
           },
           {
-            src: "https://i.ibb.co/JRS0NMMj/ZUL.png",
+            src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
             sizes: "512x512",
             type: "image/png",
             purpose: "any"
@@ -102,7 +102,7 @@ export default defineConfig({
             url: "/book",
             icons: [
               {
-                src: "https://i.ibb.co/JRS0NMMj/ZUL.png",
+                src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
                 sizes: "192x192"
               }
             ]
@@ -114,7 +114,7 @@ export default defineConfig({
             url: "/trainers",
             icons: [
               {
-                src: "https://i.ibb.co/JRS0NMMj/ZUL.png",
+                src: "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
                 sizes: "192x192"
               }
             ]
@@ -127,7 +127,7 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/i\.ibb\.co\/.*\.png/i,
+            urlPattern: /^https:\/\/socialfoundationindia\.org\/wp-content\/uploads\/.*\.png/i,
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'external-icons',

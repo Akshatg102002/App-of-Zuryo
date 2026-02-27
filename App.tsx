@@ -34,11 +34,11 @@ const SplashScreen = () => (
             <div className="absolute w-24 h-24 border-t-4 border-primary rounded-full animate-[spin_0.8s_linear_infinite]"></div>
             
             {/* Logo Image */}
-            <div className="relative z-10 bg-white rounded-full p-3 shadow-sm">
+            <div className="relative z-10 bg-white rounded-[24px] p-1 shadow-[0_0_30px_rgba(255,180,53,0.3)] border border-primary/20 overflow-hidden">
                 <img 
-                    src="https://i.ibb.co/JRS0NMMj/ZUL.png" 
+                    src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" 
                     alt="Zuryo" 
-                    className="w-14 h-14 object-contain p-1"
+                    className="w-16 h-16 object-cover"
                 />
             </div>
         </div>
@@ -78,7 +78,9 @@ const PageLoader = () => {
     return (
         <div className="fixed inset-0 z-[40] bg-white/60 backdrop-blur-[2px] flex items-center justify-center animate-in fade-in duration-200 pointer-events-none">
             <div className="bg-white/80 p-4 rounded-2xl shadow-xl flex flex-col items-center gap-3 border border-white/20 backdrop-blur-md">
-                <img src="https://i.ibb.co/JRS0NMMj/ZUL.png" alt="Loading..." className="w-8 h-8 object-contain animate-pulse p-1" />
+                <div className="w-10 h-10 bg-white rounded-xl shadow-[0_0_15px_rgba(255,180,53,0.2)] border border-primary/10 flex items-center justify-center overflow-hidden">
+                    <img src="https://socialfoundationindia.org/wp-content/uploads/2026/02/Zuryo_Updated_Logo.jpeg" alt="Loading..." className="w-full h-full object-cover animate-pulse" />
+                </div>
                 <Loader2 className="w-4 h-4 text-primary animate-spin" />
             </div>
         </div>

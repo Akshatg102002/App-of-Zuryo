@@ -64,13 +64,13 @@
   ],
   "icons": [
     {
-      "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+      "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+      "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -100,7 +100,7 @@
       "url": "/book",
       "icons": [
         {
-          "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+          "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
           "sizes": "192x192"
         }
       ]
@@ -112,7 +112,7 @@
       "url": "/trainers",
       "icons": [
         {
-          "src": "https://i.ibb.co/JRS0NMMj/ZUL.png",
+          "src": "https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png",
           "sizes": "192x192"
         }
       ]

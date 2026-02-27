@@ -12,8 +12,8 @@ self.addEventListener('push', (event) => {
   }
   const options = {
     body: data.body,
-    icon: 'https://i.ibb.co/JRS0NMMj/ZUL.png',
-    badge: 'https://i.ibb.co/JRS0NMMj/ZUL.png',
+    icon: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png',
+    badge: 'https://socialfoundationindia.org/wp-content/uploads/2026/02/playstore.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
